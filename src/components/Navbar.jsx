@@ -235,6 +235,7 @@ export default function Navbar() {
                 className="font-bold text-2xl tracking-tight flex items-center no-underline text-inherit cursor-pointer"
               >
                 <img
+                  loading="lazy"
                   src="/copym/png/Copym-01-1.png"
                   alt="COPYM"
                   className="h-16 w-auto sm:h-16 md:h-20 object-contain"

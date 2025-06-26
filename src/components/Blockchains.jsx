@@ -8,23 +8,23 @@ import GradientLetters from "./GradientLetters";
 const blockchains = [
   {
     name: "Solana",
-    logo: <img src="/assets/blockchains-logos/solana-logo-white-removebg-preview.png" alt="Solana" className="w-full h-full object-contain" />,
+    logo: <img loading="lazy" src="/assets/blockchains-logos/solana-logo-white-removebg-preview.png" alt="Solana" className="w-full h-full object-contain" />,
   },
   {
     name: "Polygon",
-    logo: <img src="/assets/blockchains-logos/Polygon-removebg-preview.png" alt="Polygon" className="w-full h-full object-contain" />,
+    logo: <img loading="lazy" src="/assets/blockchains-logos/Polygon-removebg-preview.png" alt="Polygon" className="w-full h-full object-contain" />,
   },
   {
     name: "Binance",
-    logo: <img src="/assets/blockchains-logos/binance-removebg-preview.png" alt="Binance" className="w-full h-full object-contain" />,
+    logo: <img loading="lazy" src="/assets/blockchains-logos/binance-removebg-preview.png" alt="Binance" className="w-full h-full object-contain" />,
   },
   {
     name: "Cardano",
-    logo: <img src="/assets/blockchains-logos/Cardano-Logo.png" alt="Cardano" className="w-full h-full object-contain" />,
+    logo: <img loading="lazy" src="/assets/blockchains-logos/Cardano-Logo.png" alt="Cardano" className="w-full h-full object-contain" />,
   },
   {
     name: "Optimism",
-    logo: <img src="/assets/blockchains-logos/Optimism-removebg-preview.png" alt="Optimism" className="w-full h-full object-contain" />,
+    logo: <img loading="lazy" src="/assets/blockchains-logos/Optimism-removebg-preview.png" alt="Optimism" className="w-full h-full object-contain" />,
   },
 ];
 
@@ -148,6 +148,7 @@ export default function Blockchains() {
           padding: isTablet ? "40px 20px" : "60px 40px"
         }}>
           <img 
+            loading="lazy"
             src="/assets/sections/blockchain-4.png" 
             alt="Blockchain" 
             style={{
@@ -227,6 +228,7 @@ export default function Blockchains() {
             padding: "20px"
           }}>
             <img 
+              loading="lazy"
               src="/assets/sections/blockchain-1.png" 
               alt="Blockchain" 
               style={{

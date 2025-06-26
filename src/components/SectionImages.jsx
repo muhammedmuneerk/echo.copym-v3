@@ -5,6 +5,7 @@ const SectionImage = ({ src, alt }) => {
     <Box className="w-full py-8">
       <Box className="flex justify-center">
         <img
+          loading="lazy"
           src={src}
           alt={alt}
           className="w-[90%] max-w-xl opacity-100 transition duration-500 hover:opacity-100" // "hover:opacity-100" it will not work, cause it's already "opacity: 100"//

@@ -438,6 +438,7 @@ const TokenizationSlider = () => {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 z-10"></div>
 
                         <img
+                          loading="lazy"
                           src={card.image}
                           alt={card.title}
                           className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"

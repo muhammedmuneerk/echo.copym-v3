@@ -5,6 +5,7 @@ const BorderImages = ({ src, alt }) => {
     <Box className="w-full py-8">
       <Box className="flex justify-center">
         <img
+          loading="lazy"
           src={src}
           alt={alt}
           className="w-full animate-fade-loop"
