@@ -91,7 +91,7 @@ function HomePage() {
         {/* <GreenTokenizationPopup />
         <GoldTokenizationPopup /> */}
 
-        <ScrollAnimationWrapper>
+        {/* <ScrollAnimationWrapper> */}
           <section className="blockchains-section">
             <Blockchains />
           </section>
@@ -99,7 +99,7 @@ function HomePage() {
           <section className="features-section">
             <Features />
           </section>
-        </ScrollAnimationWrapper>
+        {/* </ScrollAnimationWrapper> */}
 
         {/* <section className="global-markets-section">
           <GlobalMarkets />
@@ -114,7 +114,7 @@ function HomePage() {
           <MarketSlider />
         </section>
 
-        <ScrollAnimationWrapper>
+        {/* <ScrollAnimationWrapper> */}
           <section className="metrics-section">
             <Metrics />
           </section>
@@ -127,7 +127,7 @@ function HomePage() {
           <section className="cta-section">
             <CTA />
           </section>
-        </ScrollAnimationWrapper>
+        {/* </ScrollAnimationWrapper> */}
       </div>
     </div>
   );
@@ -182,29 +182,23 @@ function App() {
     const onReady = () => {
       if (!video.duration || isNaN(video.duration)) return;
 
-      // Object whose property we'll animate. This gives GSAP full control over easing & frame-rate.
-      const scrubObj = { time: 0 };
-
       // Kill any existing ScrollTriggers tied to this video to prevent duplicates.
       ScrollTrigger.getAll().forEach(t => t.kill());
 
-      // GSAP tween that maps scroll progress to video currentTime
-      gsap.to(scrubObj, {
-        time: video.duration,
-        ease: "none", // linear mapping
-        onUpdate: () => {
-          // Only set currentTime if it's different to avoid redundant paints.
-          if (Math.abs(video.currentTime - scrubObj.time) > 0.033) {
-            video.currentTime = scrubObj.time;
-          }
-        },
-        scrollTrigger: {
-          trigger: document.documentElement,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 0, // NO delay – keeps video perfectly synced
-          invalidateOnRefresh: true, // recalc on resize/refresh
-        },
+      // Ensure GSAP renders on every frame (disables lag smoothing that can drop frames during fast scroll)
+      gsap.ticker.lagSmoothing(0);
+
+      // Create a ScrollTrigger that directly maps scroll progress to the video's currentTime
+      ScrollTrigger.create({
+        trigger: document.documentElement,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1, // smooth catching-up time in seconds
+        invalidateOnRefresh: true,
+        onUpdate: self => {
+          // Map progress (0-1) to the video's duration
+          video.currentTime = self.progress * video.duration;
+        }
       });
     };
 
@@ -228,7 +222,7 @@ function App() {
   return (
     <Box 
       ref={appRef} 
-      className="min-h-screen relative text-text-primary overflow-x-hidden"
+      className="min-h-screen relative bg-custom-gradient text-text-primary overflow-x-hidden"
     >
       {/* Background Video for entire app */}
       <video
