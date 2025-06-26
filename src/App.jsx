@@ -232,7 +232,7 @@ function App() {
         playsInline
         preload="metadata"
       >
-        <source src="/assets/bg-video-1-1080p.mp4" type="video/mp4" />
+        <source src="/assets/bg-video-2-1080p.mp4" type="video/mp4" />
       </video>
       
       {/* Overlay gradient for better readability */}
