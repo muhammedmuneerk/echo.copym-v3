@@ -5,6 +5,7 @@ import { animate } from 'animejs';
 import { motion, useScroll, useTransform } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger);
 import Navbar from "./components/Navbar";
@@ -27,7 +28,6 @@ import PrivateEquityTokenization from "./pages/issuer/PrivateEquityTokenization/
 import DiverseAssetTokenization from "./pages/issuer/DiverseAssetTokenization/DiverseAssetTokenization";
 import RealEstateMarket from "./pages/investor/RealEstateMarket/RealEstateMarket";
 import GreenTokenization from "./pages/GreenTokenization/GreenTokenization";
-import SplashScreen from "./components/SplashScreen";
 import ScrollToTop from "./components/ScrollToTop";
 import GreenTokenizationPopup from "./components/GreenTokenizationPopup";
 import GoldTokenizationPopup from "./components/GoldTokenizatinPopup";
@@ -138,86 +138,74 @@ function HomePage() {
  * Handles routing and initial app loading animations
  */
 function App() {
-  const [showSplash, setShowSplash] = useState(true);
   const appRef = useRef(null);
   const videoRef = useRef(null);
+  const lenisRef = useRef(null);
 
-  // Handle splash screen timing
+  // Animate navbar on mount
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowSplash(false);
-      
-      // Initial page load animation after splash screen
-      if (appRef.current) {
-        animate('.bg-background', {
-          opacity: [0, 1],
-          duration: 7000,
-          easing: 'easeInOutQuad'
-        });
-      }
-    }, 7000); 
-
-    return () => clearTimeout(timer);
+    animate('nav', {
+      translateY: [-50, 0],
+      opacity: [0, 1],
+      duration: 1000,
+      easing: 'easeOutExpo'
+    });
   }, []);
 
-  // Additional animation for navbar
   useEffect(() => {
-    if (!showSplash) {
-      animate('nav', {
-        translateY: [-50, 0],
-        opacity: [0, 1],
-        duration: 1000,
-        easing: 'easeOutExpo'
-      });
-    }
-  }, [showSplash]);
+    // Initialize Lenis for buttery-smooth, controlled scrolling
+    const lenis = new Lenis({
+      // Increase duration / smoothing to slow the scroll a little more than default
+      duration: 1.3,
+      // lower lerp so animatedScroll follows closer to target for snappier video sync
+      lerp: 0.08,
+      smoothWheel: true,
+      smoothTouch: false,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    });
 
-  // ScrollTrigger for video background
-  useEffect(() => {
-    if (showSplash) return; // wait until splash is gone
+    lenisRef.current = lenis;
 
     const video = videoRef.current;
-    if (!video) return;
 
-    const onReady = () => {
-      if (!video.duration || isNaN(video.duration)) return;
+    // Keep GSAP ScrollTrigger perfectly in sync with Lenis for other animations
+    lenis.on('scroll', ScrollTrigger.update);
 
-      // Kill any existing ScrollTriggers tied to this video to prevent duplicates.
-      ScrollTrigger.getAll().forEach(t => t.kill());
+    // Also update video time on each scroll event for maximum responsiveness
+    const VIDEO_LENGTH = 10; // seconds – known runtime
 
-      // Ensure GSAP renders on every frame (disables lag smoothing that can drop frames during fast scroll)
-      gsap.ticker.lagSmoothing(0);
+    // Create a GSAP quick setter for ultra‐smooth scrubbing of currentTime
+    const setTime = gsap.quickTo(video, 'currentTime', { duration: 0.25, ease: 'linear' });
 
-      // Create a ScrollTrigger that directly maps scroll progress to the video's currentTime
-      ScrollTrigger.create({
-        trigger: document.documentElement,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 1, // smooth catching-up time in seconds
-        invalidateOnRefresh: true,
-        onUpdate: self => {
-          // Map progress (0-1) to the video's duration
-          video.currentTime = self.progress * video.duration;
-        }
-      });
+    const updateVideo = () => {
+      if (!video) return;
+      const progress = Math.min(1, lenis.targetScroll / lenis.limit);
+      setTime(progress * VIDEO_LENGTH); // tween to the new time instead of a hard jump
     };
 
-    // If metadata already loaded use it immediately, otherwise wait.
-    if (video.readyState >= 1) {
-      onReady();
-    } else {
-      video.addEventListener("loadedmetadata", onReady, { once: true });
+    lenis.on('scroll', updateVideo);
+
+    // Drive Lenis through GSAP's internal RAF (ensures updates every frame)
+    const raf = (time) => {
+      lenis.raf(time * 1000); // GSAP ticker uses seconds – convert to ms for Lenis
+      updateVideo();
+    };
+
+    gsap.ticker.add(raf);
+    gsap.ticker.lagSmoothing(0);
+
+    // Ensure native playback is halted because we are manually scrubbing
+    if (video) {
+      video.pause(); // we control frames manually
+      video.playbackRate = 1; // retain original fps when smoothing via GSAP
     }
 
     return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill());
+      lenis.off('scroll', updateVideo);
+      gsap.ticker.remove(raf);
+      lenis.destroy();
     };
-  }, [showSplash]);
-
-  // Show splash screen during initial load
-  //if (showSplash) {
-   // return <SplashScreen />;
- // }
+  }, []);
 
   return (
     <Box 
