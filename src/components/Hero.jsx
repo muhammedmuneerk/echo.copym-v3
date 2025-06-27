@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 import { KeyboardArrowDown, Title } from "@mui/icons-material";
 import BackgroundGlowEffect from "../ui/BackgroundGlowEffect";
 import GradientLetters from "./GradientLetters";
-import Buttons from "./CustomButton";
 import CustomButton from "./CustomButton";
 import { useNavigate } from "react-router-dom";
+import EarthGlb from "./EarthGlb"; // Three.js powered rotating globe
 
 export default function Hero() {
   const navigate = useNavigate();
@@ -27,6 +27,10 @@ export default function Hero() {
         backgroundRepeat: 'no-repeat',
       }}
     >
+      {/* Three.js rotating Earth background */}
+      {/* <Box className="absolute inset-0 -z-10 opacity-50 pointer-events-none">
+        <EarthGlb />
+      </Box> */}
       {/* Overlay gradient for better text readability */}
       <div className="absolute inset-0 bg-black/20">
         <Container

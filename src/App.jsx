@@ -91,7 +91,7 @@ function HomePage() {
         {/* <GreenTokenizationPopup />
         <GoldTokenizationPopup /> */}
 
-        {/* <ScrollAnimationWrapper> */}
+        <ScrollAnimationWrapper>
           <section className="blockchains-section">
             <Blockchains />
           </section>
@@ -99,7 +99,7 @@ function HomePage() {
           <section className="features-section">
             <Features />
           </section>
-        {/* </ScrollAnimationWrapper> */}
+        </ScrollAnimationWrapper>
 
         {/* <section className="global-markets-section">
           <GlobalMarkets />
@@ -114,7 +114,7 @@ function HomePage() {
           <MarketSlider />
         </section>
 
-        {/* <ScrollAnimationWrapper> */}
+        <ScrollAnimationWrapper>
           <section className="metrics-section">
             <Metrics />
           </section>
@@ -127,7 +127,7 @@ function HomePage() {
           <section className="cta-section">
             <CTA />
           </section>
-        {/* </ScrollAnimationWrapper> */}
+        </ScrollAnimationWrapper>
       </div>
     </div>
   );
