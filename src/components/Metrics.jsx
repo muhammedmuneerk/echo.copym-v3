@@ -296,7 +296,7 @@ export default function Metrics() {
           </motion.div>
           <Typography
             variant="body1"
-            className="text-text-secondary text-center mb-16 max-w-2xl mx-auto"
+            className=" text-center mb-16 max-w-2xl mx-auto"
           >
             Powering the global tokenization economy with enterprise-grade
             infrastructure

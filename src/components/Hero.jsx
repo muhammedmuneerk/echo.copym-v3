@@ -21,12 +21,23 @@ export default function Hero() {
     <Box
       className="min-h-screen relative overflow-hidden"
       sx={{
-        backgroundImage: "url('/assets/sections/rwa-hero-bg.png')",
+        backgroundImage: "url('/assets/sections/bg-hero-section.png')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
       }}
     >
+      {/* Background video – shows after it loads, while the poster and underlying background image ensure a seamless fallback */}
+      {/* <video
+        className="absolute inset-0 w-full h-full object-cover z-0"
+        autoPlay
+        muted
+        loop
+        playsInline
+        poster="/assets/sections/rwa-hero-bg.png"
+      >
+        <source src="/assets/hero-section-bg-video.mp4" type="video/mp4" />
+      </video> */}
       {/* Three.js rotating Earth background */}
       {/* <Box className="absolute inset-0 -z-10 opacity-50 pointer-events-none">
         <EarthGlb />

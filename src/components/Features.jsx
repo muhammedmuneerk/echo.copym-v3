@@ -5,54 +5,46 @@ import { keyframes } from "@emotion/react";
 import { styled } from "@mui/material/styles";
 import { useEffect, useState } from "react";
 import AnimatedCard from "../ui/AnimatedCard.jsx";
+import GradientLetters from "./GradientLetters.jsx";
+import { Globe, Fingerprint, Briefcase, Bot, Banknote, Percent } from "lucide-react";
 
-// Modified features array
+// Updated features array with appropriate Lucide icons
 const features = [
   {
     title: "Chain-Agnostic Tokenization",
     description:
-      "Chain-Agnostic Tokenization	Mint on any chain — Ethereum, Solana, Polygon, Optimism, Cardano, and more. No native token required.",
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-globe text-gray-400">
-      <circle cx="12" cy="12" r="10"></circle>
-      <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
-      <path d="M2 12h20"></path>
-    </svg>
-  },
-  {
-    title: "Zero-Fee Experience",
-    description:
-      "No gas fees. No platform charges. Simple, transparent, and cost-free at every step.",
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-shield text-gray-400">
-      <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
-    </svg>,
+      "Mint on any chain — Ethereum, Solana, Polygon, Optimism, Cardano, and more. No native token required.",
+    icon: <Globe size={28} className="text-gray-400" />,
   },
   {
     title: "Smart Compliance & Identity",
     description:
       "DID-powered onboarding, SBT-based credentials, and pre-audited contracts with jurisdictional flexibility.",
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-layers text-gray-400">
-      <path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path>
-      <path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path>
-      <path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path>
-    </svg>,
+    icon: <Fingerprint size={28} className="text-gray-400" />,
+  },
+  {
+    title: "Built with Experts, Backed by Experience",
+    description:
+      "Curated by seasoned market professionals for unmatched access and returns.",
+    icon: <Briefcase size={28} className="text-gray-400" />,
   },
   {
     title: "AI Portfolio Intelligence",
     description:
-      "Let Copym’s AI suggest diversified, high-yield portfolios tailored to your goals.",
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-wallet text-gray-400">
-      <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"></path>
-      <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"></path>
-    </svg>,
+      "Let Copym's AI suggest diversified, high-yield portfolios tailored to your goals.",
+    icon: <Bot size={28} className="text-gray-400" />,
   },
   {
     title: "Liquidity on Your Terms",
     description:
       "Trade anytime on our secondary market. No lock-in. Full control. Best-in-class real-world inventory.",
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-blocks text-gray-400">
-      <rect width="7" height="7" x="14" y="3" rx="1"></rect>
-      <path d="M10 21V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3"></path>
-    </svg>,
+    icon: <Banknote size={28} className="text-gray-400" />,
+  },
+  {
+    title: "Zero-Fee Experience",
+    description:
+      "No gas fees. No platform charges. Simple, transparent, and cost-free at every step.",
+    icon: <Percent size={28} className="text-gray-400" />,
   },
 ];
 
@@ -80,14 +72,19 @@ export default function Features() {
   }, []);
 
   return (
-    <Box className="py-24 relative overflow-hidden">
-      <Container maxWidth="xl">
+    <Box
+      className="py-24 relative overflow-hidden"
+      
+    >
+      <Container maxWidth="xl"
+      >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
           className="text-center mb-16"
+          
         >
           <Typography
             variant="overline"
@@ -103,39 +100,23 @@ export default function Features() {
               component="div"
               className="flex flex-col items-center justify-center leading-snug max-w-xs sm:max-w-xl lg:max-w-5xl mx-auto"
             >
-              {/* Small & Medium Screens (3 lines) */}
+              {/* Small & Medium Screens (2 lines) */}
               <Box className="block lg:hidden">
-                <Box component="div" className="flex flex-wrap justify-center">
-                  {Array.from("Everything You Need").map((char, idx) => (
-                    <Box key={`sm-line1-${idx}`} component="span" className="gradient-letter">
-                      {char === " " ? "\u00A0" : char}
-                    </Box>
-                  ))}
+                <Box component="div" className="flex justify-center">
+                  <GradientLetters text="Everything You Need" keyPrefix="sm-line1" />
                 </Box>
-                <Box component="div" className="flex flex-wrap justify-center">
-                  {Array.from("In One Place").map((char, idx) => (
-                    <Box key={`sm-line2-${idx}`} component="span" className="gradient-letter">
-                      {char === " " ? "\u00A0" : char}
-                    </Box>
-                  ))}
+                <Box component="div" className="flex justify-center">
+                  <GradientLetters text="In One Place" keyPrefix="sm-line2" />
                 </Box>
               </Box>
 
               {/* Large Screens (2 lines) */}
               <Box className="hidden lg:block">
-                <Box component="div" className="flex flex-wrap justify-center">
-                  {Array.from("Everything You Need").map((char, idx) => (
-                    <Box key={`lg-line1-${idx}`} component="span" className="gradient-letter">
-                      {char === " " ? "\u00A0" : char}
-                    </Box>
-                  ))}
+                <Box component="div" className="flex justify-center">
+                  <GradientLetters text="Everything You Need" keyPrefix="lg-line1" />
                 </Box>
-                <Box component="div" className="flex flex-wrap justify-center">
-                  {Array.from("In One Place").map((char, idx) => (
-                    <Box key={`lg-line2-${idx}`} component="span" className="gradient-letter">
-                      {char === " " ? "\u00A0" : char}
-                    </Box>
-                  ))}
+                <Box component="div" className="flex justify-center">
+                  <GradientLetters text="In One Place" keyPrefix="lg-line2" />
                 </Box>
               </Box>
             </Box>
@@ -143,23 +124,37 @@ export default function Features() {
 
           <Typography
             variant="body1"
-            className="text-text-secondary max-w-2xl mx-auto"
+            className=" max-w-2xl mx-auto"
           >
             No more juggling multiple services or platforms. Copym provides
             end-to-end solutions for the entire tokenization lifecycle.
           </Typography>
         </motion.div>
 
-        {/* Single Row Layout for Features */}
-        <Grid container spacing={3} justifyContent="center">
+        {/* Card grid */}
+        <Grid container spacing={2.5} justifyContent="center" 
+        sx={{
+        backgroundImage: 'url(/assets/sections/bg-features-section.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        padding: '2rem 1rem',
+        marginTop: '-2rem',
+        paddingBottom: '4rem',
+        marginLeft: '-10px',
+        borderRadius: '2.5rem',
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+        border: '5px solid rgba(255, 255, 255, 0.1)',
+        backdropFilter: 'blur(10px)',
+      }}>
           {features.map((feature, index) => (
-            <Grid item xs={12} sm={6} md={4} lg={2.4} key={feature.title}>
+            <Grid item xs={12} sm={6} md={4} lg={4} key={feature.title} sx={{ display: 'flex', justifyContent: 'center',  }}>
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="h-full"
+                className="h-full bg-white/5 rounded-2xl -ml-6"
               >
                 <AnimatedCard style={{ perspective: "1000px" }}>
                   

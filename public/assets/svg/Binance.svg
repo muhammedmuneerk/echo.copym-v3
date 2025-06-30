@@ -1,0 +1,31 @@
+<svg width="300" height="100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .rotate {
+      animation: spin 5s linear infinite;
+      transform-origin: center;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .text {
+      font-family: Arial, sans-serif;
+      font-size: 24px;
+      fill: gray;
+    }
+  </style>
+
+  <!-- Binance logo simplified -->
+  <g class="rotate" transform="translate(50,50)">
+    <rect x="-10" y="-10" width="20" height="20" fill="gray" transform="rotate(45)" />
+    <rect x="-30" y="-10" width="20" height="20" fill="gray" transform="rotate(45)" />
+    <rect x="10" y="-10" width="20" height="20" fill="gray" transform="rotate(45)" />
+    <rect x="-10" y="10" width="20" height="20" fill="gray" transform="rotate(45)" />
+    <rect x="-10" y="-30" width="20" height="20" fill="gray" transform="rotate(45)" />
+  </g>
+
+  <!-- Binance text -->
+  <text x="110" y="60" class="text">Binance</text>
+</svg>

@@ -56,7 +56,7 @@ export default function CTA() {
 
         <Typography
           variant="body1"
-          className="text-text-secondary mb-8 max-w-2xl mx-auto"
+          className=" mb-8 max-w-2xl mx-auto"
         >
           Join thousands of individuals and organizations already unlocking the
           value of their assets on the Copym platform.

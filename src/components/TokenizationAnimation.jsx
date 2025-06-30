@@ -244,25 +244,34 @@ const TokenizationAnimation = ({ isMobile = false }) => {
     return { x, y };
   });
 
-  // Animation sequence
+  // Animation sequence (continuous loop)
   useEffect(() => {
-    const sequence = [
-      { delay: 0, action: () => setAnimationPhase(1) }, // Show assets
-      { delay: 1500, action: () => setAnimationPhase(2) }, // Start tokenization
-      { delay: 3000, action: () => setAnimationPhase(3) }, // Show investors
-      { delay: 4500, action: () => setShowConnections(true) }, // Show network
-      { delay: 7000, action: () => { // Reset
+    let timeouts = [];
+
+    const runSequence = () => {
+      // Phase timeline
+      timeouts.push(setTimeout(() => setAnimationPhase(1), 0));        // Show assets
+      timeouts.push(setTimeout(() => setAnimationPhase(2), 1500));     // Start tokenization
+      timeouts.push(setTimeout(() => setAnimationPhase(3), 3000));     // Show investors
+      timeouts.push(setTimeout(() => setShowConnections(true), 4500)); // Display connections
+
+      // Reset and restart sequence
+      timeouts.push(setTimeout(() => {
         setAnimationPhase(0);
         setActiveTokens([]);
         setShowConnections(false);
-      }},
-    ];
+        runSequence(); // Recursive call for continuous loop
+      }, 7000));
+    };
 
-    const timeouts = sequence.map(({ delay, action }) => 
-      setTimeout(action, delay)
-    );
+    // Kick off first run
+    runSequence();
 
-    return () => timeouts.forEach(clearTimeout);
+    // Cleanup on unmount
+    return () => {
+      timeouts.forEach(clearTimeout);
+      timeouts = [];
+    };
   }, []);
 
   // Generate flowing tokens
