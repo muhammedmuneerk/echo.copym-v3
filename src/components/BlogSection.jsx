@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Container, Typography, Grid, Box, Button } from '@mui/material';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowForward } from '@mui/icons-material';
 import AnimatedCard from '../ui/AnimatedCard';
 import GradientLetters from './GradientLetters';
@@ -27,12 +27,75 @@ const blogs = [
   },
 ];
 
+// 3D Camera-Based Background Component for Blog Section
+const CameraBackground = ({ children }) => {
+  const backgroundRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: backgroundRef,
+    offset: ["start end", "end start"]
+  });
+  
+  // Camera effect: coming from far away, then going far away
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 1, 0.3]); // Far -> Close -> Far
+  const y = useTransform(scrollYProgress, [0, 0.5, 1], [100, 0, -100]); // Moving up as it comes closer
+  const x = useTransform(scrollYProgress, [0, 0.5, 1], [-50, 0, 50]); // Side movement for depth
+  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [25, 0, -25]); // Angle changes for perspective
+  const rotateY = useTransform(scrollYProgress, [0, 0.5, 1], [-30, 0, 30]); // Rotation for 3D effect
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.4, 1, 1, 0.4]); // Fade for depth perception
+  
+  return (
+    <motion.div
+      ref={backgroundRef}
+      style={{
+        transformStyle: 'preserve-3d',
+        perspective: '800px',
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden',
+      }}
+    >
+      <motion.div
+        style={{
+          scale,
+          x,
+          y,
+          rotateX,
+          rotateY,
+          opacity,
+          transformStyle: 'preserve-3d',
+          width: '100%',
+          height: '100%',
+        }}
+        transition={{ duration: 0.05, ease: "easeOut" }}
+      >
+        {children}
+      </motion.div>
+    </motion.div>
+  );
+};
+
 /**
  * BlogSection – displays a grid of the latest blog posts / insights
  */
 const BlogSection = () => {
   return (
     <Container maxWidth="lg" sx={{ py: { xs: 4, md: 8 } }}>
+      <CameraBackground>
+        <Grid container spacing={2.5} justifyContent="center" 
+                sx={{
+                backgroundImage: 'url(/assets/sections/bg-blog-section.png)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                padding: '2rem 1rem',
+                marginTop: '-2rem',
+                paddingBottom: '4rem',
+                marginLeft: '-10px',
+                borderRadius: '2.5rem',
+                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+                border: '5px solid rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(10px)',
+              }}>
       {/* Section heading */}
       <Typography
         variant="h3"
@@ -93,6 +156,8 @@ const BlogSection = () => {
           </Grid>
         ))}
       </Grid>
+      </Grid>
+      </CameraBackground>
     </Container>
   );
 };

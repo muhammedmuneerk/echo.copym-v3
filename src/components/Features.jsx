@@ -1,9 +1,9 @@
 import { Container, Typography, Box, Grid, Button } from "@mui/material";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowForward } from "@mui/icons-material";
 import { keyframes } from "@emotion/react";
 import { styled } from "@mui/material/styles";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import AnimatedCard from "../ui/AnimatedCard.jsx";
 import GradientLetters from "./GradientLetters.jsx";
 import { Globe, Fingerprint, Briefcase, Bot, Banknote, Percent } from "lucide-react";
@@ -47,6 +47,53 @@ const features = [
     icon: <Percent size={28} className="text-gray-400" />,
   },
 ];
+
+// 3D Camera-Based Background Component for Features
+const CameraBackground = ({ children }) => {
+  const backgroundRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: backgroundRef,
+    offset: ["start end", "end start"]
+  });
+  
+  // Camera effect: coming from far away, then going far away
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 1, 0.3]); // Far -> Close -> Far
+  const y = useTransform(scrollYProgress, [0, 0.5, 1], [100, 0, -100]); // Moving up as it comes closer
+  const x = useTransform(scrollYProgress, [0, 0.5, 1], [-50, 0, 50]); // Side movement for depth
+  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [25, 0, -25]); // Angle changes for perspective
+  const rotateY = useTransform(scrollYProgress, [0, 0.5, 1], [-30, 0, 30]); // Rotation for 3D effect
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.4, 1, 1, 0.4]); // Fade for depth perception
+  
+  return (
+    <motion.div
+      ref={backgroundRef}
+      style={{
+        transformStyle: 'preserve-3d',
+        perspective: '800px',
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden',
+      }}
+    >
+      <motion.div
+        style={{
+          scale,
+          x,
+          y,
+          rotateX,
+          rotateY,
+          opacity,
+          transformStyle: 'preserve-3d',
+          width: '100%',
+          height: '100%',
+        }}
+        transition={{ duration: 0.05, ease: "easeOut" }}
+      >
+        {children}
+      </motion.div>
+    </motion.div>
+  );
+};
 
 export default function Features() {
   const [screenSize, setScreenSize] = useState("lg");
@@ -131,22 +178,23 @@ export default function Features() {
           </Typography>
         </motion.div>
 
-        {/* Card grid */}
-        <Grid container spacing={2.5} justifyContent="center" 
-        sx={{
-        backgroundImage: 'url(/assets/sections/bg-features-section.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        padding: '2rem 1rem',
-        marginTop: '-2rem',
-        paddingBottom: '4rem',
-        marginLeft: '-10px',
-        borderRadius: '2.5rem',
-        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-        border: '5px solid rgba(255, 255, 255, 0.1)',
-        backdropFilter: 'blur(10px)',
-      }}>
+        {/* Card grid with camera-based 3D background effect */}
+        <CameraBackground>
+          <Grid container spacing={2.5} justifyContent="center" 
+          sx={{
+          backgroundImage: 'url(/assets/sections/bg-features-section-2-1.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          padding: '2rem 1rem',
+          marginTop: '-2rem',
+          paddingBottom: '4rem',
+          marginLeft: '-10px',
+          borderRadius: '2.5rem',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+          border: '5px solid rgba(255, 255, 255, 0.1)',
+          backdropFilter: 'blur(10px)',
+        }}>
           {features.map((feature, index) => (
             <Grid item xs={12} sm={6} md={4} lg={4} key={feature.title} sx={{ display: 'flex', justifyContent: 'center',  }}>
               <motion.div
@@ -189,8 +237,9 @@ export default function Features() {
                 </AnimatedCard>
               </motion.div>
             </Grid>
-          ))}
-        </Grid>
+                      ))}
+          </Grid>
+        </CameraBackground>
       </Container>
     </Box>
   );

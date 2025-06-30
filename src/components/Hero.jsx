@@ -21,7 +21,7 @@ export default function Hero() {
     <Box
       className="min-h-screen relative overflow-hidden"
       sx={{
-        backgroundImage: "url('/assets/sections/bg-hero-section.png')",
+        backgroundImage: "url('/assets/sections/bg-hero-section-1.png')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',

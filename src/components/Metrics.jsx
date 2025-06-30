@@ -1,5 +1,5 @@
 import { Container, Typography, Box, Grid, useTheme, useMediaQuery } from "@mui/material";
-import { motion, useAnimation, AnimatePresence } from "framer-motion";
+import { motion, useAnimation, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Area, AreaChart, ReferenceLine } from 'recharts';
 import { useState, useEffect, useRef } from 'react';
 import { keyframes } from "@emotion/react";
@@ -186,6 +186,62 @@ const CustomTooltip = ({ active, payload, label }) => {
   return null;
 };
 
+// 3D Tilt Card Component
+const TiltCard = ({ children, index }) => {
+  const cardRef = useRef(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  const rotateX = useTransform(mouseY, [-0.5, 0.5], [15, -15]);
+  const rotateY = useTransform(mouseX, [-0.5, 0.5], [-15, 15]);
+  
+  const handleMouseMove = (event) => {
+    if (!cardRef.current) return;
+    
+    const rect = cardRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    const mouseXFromCenter = event.clientX - centerX;
+    const mouseYFromCenter = event.clientY - centerY;
+    
+    mouseX.set(mouseXFromCenter / (rect.width / 2));
+    mouseY.set(mouseYFromCenter / (rect.height / 2));
+  };
+  
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+  
+  return (
+    <motion.div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        transformStyle: 'preserve-3d',
+        perspective: '1000px',
+      }}
+      whileHover={{
+        scale: 1.02,
+        transition: { duration: 0.2 }
+      }}
+    >
+      <motion.div
+        style={{
+          rotateX,
+          rotateY,
+          transformStyle: 'preserve-3d',
+        }}
+        transition={{ duration: 0.1 }}
+      >
+        {children}
+      </motion.div>
+    </motion.div>
+  );
+};
+
 export default function Metrics() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -313,81 +369,79 @@ export default function Metrics() {
                 viewport={{ once: false }} // Changed to false to re-trigger animation
                 className="h-full"
               >
-                <AnimatedCard>
-
-                  <motion.div
-                    whileHover={{
-                      scale: 1.05,
-                    }}
-                    onHoverStart={() => handleMetricHover(index)}
-                    onHoverEnd={handleMetricLeave}
-                    className="text-center card-content"
-                  >
+                <TiltCard index={index}>
+                  <AnimatedCard>
                     <motion.div
-                      className="mb-2 text-2xl flex justify-center metric-icon"
-                      initial={{ rotateY: 0 }}
-                      whileHover={{ rotateY: 180 }}
-                      transition={{ 
-                        duration: 0.7,
-                        type: "spring",
-                        stiffness: 50,
-                        damping: 10
-                      }}
-                      style={{ 
-                        perspective: '800px',
-                        transformStyle: 'preserve-3d'
-                      }}
+                      onHoverStart={() => handleMetricHover(index)}
+                      onHoverEnd={handleMetricLeave}
+                      className="text-center card-content"
                     >
-                      <MetricIcon type={metric.iconType} size={32} />
-                    </motion.div>
-                    <motion.div
-                      key={`metric-${index}-${isComponentInView}`} // Force re-render when viewport status changes
-                      initial={{ scale: 0.8, opacity: 0 }}
-                      whileInView={{ scale: 1, opacity: 1 }}
-                      transition={{ duration: 0.7, delay: index * 0.2 + 0.3 }}
-                      viewport={{ once: false }} // Changed to false to re-trigger animation
-                    >
-                      <Typography variant="h2" className="text-5xl mb-2 font-bold">
-                        <AnimatedCounter
-                          value={metric.value}
-                          duration={2.5}
-                          delay={index * 0.2 + 0.5}
-                          isInView={isComponentInView} // Pass viewport status to counter
-                        />
+                      <motion.div
+                        className="mb-2 text-2xl flex justify-center metric-icon"
+                        initial={{ rotateY: 0 }}
+                        whileHover={{ rotateY: 180 }}
+                        transition={{ 
+                          duration: 0.7,
+                          type: "spring",
+                          stiffness: 50,
+                          damping: 10
+                        }}
+                        style={{ 
+                          perspective: '800px',
+                          transformStyle: 'preserve-3d'
+                        }}
+                      >
+                        <MetricIcon type={metric.iconType} size={32} />
+                      </motion.div>
+                      <motion.div
+                        key={`metric-${index}-${isComponentInView}`} // Force re-render when viewport status changes
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        whileInView={{ scale: 1, opacity: 1 }}
+                        transition={{ duration: 0.7, delay: index * 0.2 + 0.3 }}
+                        viewport={{ once: false }} // Changed to false to re-trigger animation
+                      >
+                        <Typography variant="h2" className="text-5xl mb-2 font-bold">
+                          <AnimatedCounter
+                            value={metric.value}
+                            duration={2.5}
+                            delay={index * 0.2 + 0.5}
+                            isInView={isComponentInView} // Pass viewport status to counter
+                          />
+                        </Typography>
+                      </motion.div>
+                      <Typography
+                        variant="body1"
+                        className="text-text-secondary mb-2 font-medium"
+                      >
+                        {metric.label}
+                      </Typography>
+                      <motion.div
+                        key={`divider-${index}-${isComponentInView}`} // Force re-render when viewport status changes
+                        initial={{ width: 0 }}
+                        whileInView={{ width: "100%" }}
+                        transition={{ duration: 1, delay: index * 0.2 + 0.8 }}
+                        viewport={{ once: false }} // Changed to false to re-trigger animation
+                        className="h-0.5 bg-primary/30 mb-2 mx-auto"
+                      />
+                      <Typography
+                        variant="body2"
+                        className="text-primary font-bold inline-flex items-center"
+                      >
+                        {metric.growth}
+                        <motion.span
+                          key={`growth-${index}-${isComponentInView}`} // Force re-render when viewport status changes
+                          initial={{ width: 0, opacity: 0 }}
+                          whileInView={{ width: "auto", opacity: 1 }}
+                          transition={{ duration: 0.5, delay: index * 0.2 + 1 }}
+                          viewport={{ once: false }} // Changed to false to re-trigger animation
+                          className="text-text-secondary ml-2 font-normal"
+                        >
+                          {metric.period}
+                        </motion.span>
                       </Typography>
                     </motion.div>
-                    <Typography
-                      variant="body1"
-                      className="text-text-secondary mb-2 font-medium"
-                    >
-                      {metric.label}
-                    </Typography>
-                    <motion.div
-                      key={`divider-${index}-${isComponentInView}`} // Force re-render when viewport status changes
-                      initial={{ width: 0 }}
-                      whileInView={{ width: "100%" }}
-                      transition={{ duration: 1, delay: index * 0.2 + 0.8 }}
-                      viewport={{ once: false }} // Changed to false to re-trigger animation
-                      className="h-0.5 bg-primary/30 mb-2 mx-auto"
-                    />
-                    <Typography
-                      variant="body2"
-                      className="text-primary font-bold inline-flex items-center"
-                    >
-                      {metric.growth}
-                      <motion.span
-                        key={`growth-${index}-${isComponentInView}`} // Force re-render when viewport status changes
-                        initial={{ width: 0, opacity: 0 }}
-                        whileInView={{ width: "auto", opacity: 1 }}
-                        transition={{ duration: 0.5, delay: index * 0.2 + 1 }}
-                        viewport={{ once: false }} // Changed to false to re-trigger animation
-                        className="text-text-secondary ml-2 font-normal"
-                      >
-                        {metric.period}
-                      </motion.span>
-                    </Typography>
-                  </motion.div>
-                </AnimatedCard>
+                  </AnimatedCard>
+                </TiltCard>
               </motion.div>
             </Grid>
           ))}
