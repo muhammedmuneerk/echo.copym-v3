@@ -6,6 +6,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from 'lenis';
+import BackgroundEarth from "./components/BackgroundEarth";
 
 gsap.registerPlugin(ScrollTrigger);
 import Navbar from "./components/Navbar";
@@ -139,7 +140,6 @@ function HomePage() {
  */
 function App() {
   const appRef = useRef(null);
-  const videoRef = useRef(null);
   const lenisRef = useRef(null);
 
   // Animate navbar on mount
@@ -155,9 +155,7 @@ function App() {
   useEffect(() => {
     // Initialize Lenis for buttery-smooth, controlled scrolling
     const lenis = new Lenis({
-      // Increase duration / smoothing to slow the scroll a little more than default
       duration: 1.3,
-      // lower lerp so animatedScroll follows closer to target for snappier video sync
       lerp: 0.08,
       smoothWheel: true,
       smoothTouch: false,
@@ -166,42 +164,18 @@ function App() {
 
     lenisRef.current = lenis;
 
-    const video = videoRef.current;
-
-    // Keep GSAP ScrollTrigger perfectly in sync with Lenis for other animations
+    // Keep GSAP ScrollTrigger perfectly in sync with Lenis for animations
     lenis.on('scroll', ScrollTrigger.update);
-
-    // Also update video time on each scroll event for maximum responsiveness
-    const VIDEO_LENGTH = 10; // seconds – known runtime
-
-    // Create a GSAP quick setter for ultra‐smooth scrubbing of currentTime
-    const setTime = gsap.quickTo(video, 'currentTime', { duration: 0.25, ease: 'linear' });
-
-    const updateVideo = () => {
-      if (!video) return;
-      const progress = Math.min(1, lenis.targetScroll / lenis.limit);
-      setTime(progress * VIDEO_LENGTH); // tween to the new time instead of a hard jump
-    };
-
-    lenis.on('scroll', updateVideo);
 
     // Drive Lenis through GSAP's internal RAF (ensures updates every frame)
     const raf = (time) => {
       lenis.raf(time * 1000); // GSAP ticker uses seconds – convert to ms for Lenis
-      updateVideo();
     };
 
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
 
-    // Ensure native playback is halted because we are manually scrubbing
-    if (video) {
-      video.pause(); // we control frames manually
-      video.playbackRate = 1; // retain original fps when smoothing via GSAP
-    }
-
     return () => {
-      lenis.off('scroll', updateVideo);
       gsap.ticker.remove(raf);
       lenis.destroy();
     };
@@ -212,19 +186,11 @@ function App() {
       ref={appRef} 
       className="min-h-screen relative bg-custom-gradient text-text-primary overflow-x-hidden"
     >
-      {/* Background Video for entire app */}
-      <video
-        ref={videoRef}
-        className="fixed inset-0 w-full h-full object-cover z-0"
-        muted
-        playsInline
-        preload="metadata"
-      >
-        <source src="/assets/bg-video-2-1080p.mp4" type="video/mp4" />
-      </video>
+      {/* Background 3D Earth Model */}
+      <BackgroundEarth />
       
       {/* Overlay gradient for better readability */}
-      <div className="fixed inset-0 bg-black/20 z-10"></div>
+      <div className="fixed inset-0 bg-black/30 z-10"></div>
       
       <ScrollToTop />
       <Navbar />
