@@ -1,223 +1,7 @@
-import React, { useRef, useEffect, Suspense, useState, useMemo } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { useGLTF, Sphere, Box, Torus, Cylinder, Plane, Text, Points, PointMaterial } from '@react-three/drei';
+import React, { useRef, useEffect, Suspense, useState } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { useGLTF, Torus } from '@react-three/drei';
 import * as THREE from 'three';
-
-// Deep Background Atmospheric Layers (Far Behind Globe)
-const DeepAtmosphericLayers = () => {
-  const layer1 = useRef();
-  const layer2 = useRef();
-  const layer3 = useRef();
-  const layer4 = useRef();
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = Math.min(scrollTop / scrollHeight, 1);
-      setScrollProgress(progress);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useFrame((state) => {
-    const time = state.clock.elapsedTime;
-
-    if (layer1.current) {
-      layer1.current.material.opacity = 0.4 + Math.sin(time * 0.3 + scrollProgress * Math.PI) * 0.1;
-      layer1.current.position.z = -120 + Math.sin(time * 0.05) * 3;
-    }
-
-    if (layer2.current) {
-      layer2.current.material.opacity = 0.3 + Math.cos(time * 0.2 + scrollProgress * Math.PI * 1.2) * 0.15;
-      layer2.current.position.z = -100 + Math.cos(time * 0.08) * 4;
-    }
-
-    if (layer3.current) {
-      layer3.current.material.opacity = 0.25 + Math.sin(time * 0.4 + scrollProgress * Math.PI * 0.8) * 0.2;
-      layer3.current.position.z = -80 + Math.sin(time * 0.1) * 3;
-    }
-
-    if (layer4.current) {
-      layer4.current.material.opacity = 0.2 + Math.cos(time * 0.25 + scrollProgress * Math.PI * 1.8) * 0.1;
-      layer4.current.position.z = -60 + Math.cos(time * 0.12) * 2;
-    }
-  });
-
-  return (
-    <group>
-      {/* Deepest Background Layer */}
-      <Plane ref={layer1} args={[500, 500]} position={[0, 0, -120]}>
-        <meshBasicMaterial 
-          color="#000208"
-          transparent 
-          opacity={0.4}
-        />
-      </Plane>
-
-      {/* Second Deep Layer */}
-      <Plane ref={layer2} args={[450, 450]} position={[0, 0, -100]}>
-        <meshBasicMaterial 
-          color="#030310"
-          transparent 
-          opacity={0.3}
-        />
-      </Plane>
-
-      {/* Third Layer */}
-      <Plane ref={layer3} args={[400, 400]} position={[0, 0, -80]}>
-        <meshBasicMaterial 
-          color="#080818"
-          transparent 
-          opacity={0.25}
-        />
-      </Plane>
-
-      {/* Nearest Background Layer (Still Behind Globe) */}
-      <Plane ref={layer4} args={[350, 350]} position={[0, 0, -60]}>
-        <meshBasicMaterial 
-          color="#0f0f20"
-          transparent 
-          opacity={0.2}
-        />
-      </Plane>
-    </group>
-  );
-};
-
-// Deep Volumetric Background Effects
-const DeepVolumetricEffects = () => {
-  const effect1 = useRef();
-  const effect2 = useRef();
-  const effect3 = useRef();
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = Math.min(scrollTop / scrollHeight, 1);
-      setScrollProgress(progress);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useFrame((state) => {
-    const time = state.clock.elapsedTime;
-
-    if (effect1.current) {
-      effect1.current.rotation.z = time * 0.02 + scrollProgress * Math.PI * 0.3;
-      effect1.current.material.opacity = 0.08 + Math.sin(time * 0.5 + scrollProgress * Math.PI) * 0.04;
-      effect1.current.position.z = -90 + Math.sin(time * 0.06) * 5;
-    }
-
-    if (effect2.current) {
-      effect2.current.rotation.z = -time * 0.015 + scrollProgress * Math.PI * 0.2;
-      effect2.current.material.opacity = 0.06 + Math.cos(time * 0.4 + scrollProgress * Math.PI * 1.1) * 0.03;
-      effect2.current.position.z = -70 + Math.cos(time * 0.08) * 4;
-    }
-
-    if (effect3.current) {
-      effect3.current.rotation.z = time * 0.025 - scrollProgress * Math.PI * 0.4;
-      effect3.current.material.opacity = 0.05 + Math.sin(time * 0.7 + scrollProgress * Math.PI * 0.9) * 0.02;
-      effect3.current.position.z = -50 + Math.sin(time * 0.09) * 3;
-    }
-  });
-
-  return (
-    <group>
-      <Plane ref={effect1} args={[600, 600, 30, 30]} position={[0, 0, -90]}>
-        <meshBasicMaterial 
-          color="#0a0a15"
-          transparent 
-          opacity={0.08}
-        />
-      </Plane>
-      <Plane ref={effect2} args={[550, 550, 25, 25]} position={[0, 0, -70]}>
-        <meshBasicMaterial 
-          color="#121220"
-          transparent 
-          opacity={0.06}
-        />
-      </Plane>
-      <Plane ref={effect3} args={[500, 500, 20, 20]} position={[0, 0, -50]}>
-        <meshBasicMaterial 
-          color="#181828"
-          transparent 
-          opacity={0.05}
-        />
-      </Plane>
-    </group>
-  );
-};
-
-// Far Background Gradient Fields
-const FarBackgroundFields = () => {
-  const field1 = useRef();
-  const field2 = useRef();
-  const field3 = useRef();
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = Math.min(scrollTop / scrollHeight, 1);
-      setScrollProgress(progress);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useFrame((state) => {
-    const time = state.clock.elapsedTime;
-
-    if (field1.current) {
-      field1.current.position.y = Math.sin(time * 0.1 + scrollProgress * Math.PI) * 8;
-      field1.current.material.opacity = 0.12 + Math.sin(time * 0.3 + scrollProgress * Math.PI * 1.5) * 0.06;
-    }
-
-    if (field2.current) {
-      field2.current.position.x = Math.cos(time * 0.08 + scrollProgress * Math.PI * 1.2) * 12;
-      field2.current.material.opacity = 0.1 + Math.cos(time * 0.4 + scrollProgress * Math.PI * 1.3) * 0.05;
-    }
-
-    if (field3.current) {
-      field3.current.position.y = Math.cos(time * 0.12 - scrollProgress * Math.PI * 0.7) * 10;
-      field3.current.position.x = Math.sin(time * 0.09 + scrollProgress * Math.PI * 0.9) * 6;
-      field3.current.material.opacity = 0.08 + Math.sin(time * 0.5 + scrollProgress * Math.PI * 1.6) * 0.04;
-    }
-  });
-
-  return (
-    <group>
-      <Plane ref={field1} args={[300, 300]} position={[0, 0, -110]} rotation={[0, 0, Math.PI / 6]}>
-        <meshBasicMaterial 
-          color="#1a1a30"
-          transparent 
-          opacity={0.12}
-        />
-      </Plane>
-      <Plane ref={field2} args={[280, 280]} position={[0, 0, -95]} rotation={[0, 0, -Math.PI / 8]}>
-        <meshBasicMaterial 
-          color="#202040"
-          transparent 
-          opacity={0.1}
-        />
-      </Plane>
-      <Plane ref={field3} args={[260, 260]} position={[0, 0, -75]} rotation={[0, 0, Math.PI / 4]}>
-        <meshBasicMaterial 
-          color="#252550"
-          transparent 
-          opacity={0.08}
-        />
-      </Plane>
-    </group>
-  );
-};
 
 // Central Holographic Earth
 const HolographicEarth = () => {
@@ -275,81 +59,128 @@ const HolographicEarth = () => {
   return (
     <group ref={groupRef}>
       <primitive ref={earthRef} object={scene} />
-      {/* Holographic ring around earth */}
-      <Torus args={[4, 0.05, 16, 100]}>
-        <meshStandardMaterial color="#00ffff" transparent opacity={0.8} wireframe />
-      </Torus>
-    </group>
-  );
-};
-
-// Main Component - All Background Elements Behind Globe
-const VibrantDarkBackground = () => {
-  return (
-    <group>
-      {/* All background elements positioned far behind the globe */}
-      <DeepAtmosphericLayers />
-      <DeepVolumetricEffects />
-      <FarBackgroundFields />
-      {/* Globe renders in front of all background elements */}
-      <HolographicEarth />
     </group>
   );
 };
 
 const BackgroundEarth = () => {
+  const vantaRef = useRef(null);
+  const vantaEffect = useRef(null);
+
+  useEffect(() => {
+    // Load Three.js and Vanta.js scripts
+    const loadScript = (src) => {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = src;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
+    };
+
+    const initVanta = async () => {
+      try {
+        // Check if scripts are already loaded
+        if (!window.THREE) {
+          await loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js');
+        }
+        
+        if (!window.VANTA) {
+          await loadScript('https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.dots.min.js');
+        }
+
+        // Initialize Vanta effect
+        if (vantaRef.current && window.VANTA) {
+          vantaEffect.current = window.VANTA.DOTS({
+            el: vantaRef.current,
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x20ff28,
+            color2: 0x24ff20,
+            size: 2.50,
+            spacing: 22.00,
+            showLines: false
+          });
+        }
+      } catch (error) {
+        console.error('Error loading Vanta.js:', error);
+      }
+    };
+
+    initVanta();
+
+    return () => {
+      if (vantaEffect.current) {
+        vantaEffect.current.destroy();
+      }
+    };
+  }, []);
+
   return (
     <div className="fixed inset-0 w-full h-full z-0">
-      <Suspense fallback={null}>
-        <Canvas
-          camera={{ 
-            position: [0, 5, 20], 
-            fov: 60,
-            near: 0.1,
-            far: 1000
-          }}
-          style={{ 
-            width: '100%', 
-            height: '100%',
-            background: 'linear-gradient(180deg, #000205 0%, #050510 25%, #0a0a18 50%, #0f0f20 75%, #141428 100%)'
-          }}
-        >
-          {/* Enhanced lighting that doesn't interfere with globe visibility */}
-          <ambientLight intensity={0.3} color="#ffffff" />
-          
-          <directionalLight 
-            position={[20, 20, 10]} 
-            intensity={2.0}
-            color="#ffffff"
-            castShadow
-          />
-          
-          <directionalLight 
-            position={[-15, -10, -8]} 
-            intensity={1.0}
-            color="#ffffff"
-          />
-          
-          <pointLight 
-            position={[0, 10, 15]} 
-            intensity={2.5}
-            color="#ffffff"
-            distance={80}
-          />
-          
-          <pointLight 
-            position={[15, -15, 5]} 
-            intensity={1.5}
-            color="#ffffff"
-            distance={60}
-          />
-          
-          {/* Subtle fog that doesn't affect globe */}
-          
-          
-          <VibrantDarkBackground />
-        </Canvas>
-      </Suspense>
+      {/* Vanta.js Background */}
+      <div 
+        ref={vantaRef}
+        className="absolute inset-0 w-full h-full"
+        style={{ zIndex: 1 }}
+      />
+      
+      {/* Three.js Canvas with transparent background */}
+      <div className="absolute inset-0 w-full h-full" style={{ zIndex: 2 }}>
+        <Suspense fallback={null}>
+          <Canvas
+            camera={{ 
+              position: [0, 5, 20], 
+              fov: 60,
+              near: 0.1,
+              far: 1000
+            }}
+            style={{ 
+              width: '100%', 
+              height: '100%',
+              background: 'transparent'
+            }}
+          >
+            {/* Enhanced lighting for the Earth model */}
+            <ambientLight intensity={0.4} color="#ffffff" />
+            
+            <directionalLight 
+              position={[20, 20, 10]} 
+              intensity={2.5}
+              color="#ffffff"
+              castShadow
+            />
+            
+            <directionalLight 
+              position={[-15, -10, -8]} 
+              intensity={1.2}
+              color="#ffffff"
+            />
+            
+            <pointLight 
+              position={[0, 10, 15]} 
+              intensity={3.0}
+              color="#ffffff"
+              distance={80}
+            />
+            
+            <pointLight 
+              position={[15, -15, 5]} 
+              intensity={2.0}
+              color="#ffffff"
+              distance={60}
+            />
+            
+            <HolographicEarth />
+          </Canvas>
+        </Suspense>
+      </div>
     </div>
   );
 };

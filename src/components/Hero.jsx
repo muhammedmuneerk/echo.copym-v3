@@ -61,30 +61,7 @@ export default function Hero() {
                 <KeywordFlag text="Transparency" top="30%" left="90%" direction="bottom" />
               </Box>
 
-              {/* Logo – Hidden on mobile (xs) */}
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: "18.8%",
-                  left: "35.8%",
-                  zIndex: 10,
-                  perspective: "1000px",
-                  display: { xs: "none", sm: "block" },
-                }}
-              >
-                <Box
-                  sx={{
-                    transform: "rotateX(28deg) rotateY(-39deg)",
-                    transformStyle: "preserve-3d",
-                  }}
-                >
-                  <img
-                    src="/copym/png/Copym-05.png"
-                    alt="Copym Logo"
-                    style={{ height: 319, width: "auto" }}
-                  />
-                </Box>
-              </Box>
+              
             </motion.div>
           </motion.div>
 
