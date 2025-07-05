@@ -3,11 +3,11 @@ import { motion, useAnimation } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
 import { Box, Typography } from "@mui/material";
-import GradientLetters from "./GradientLetters";
+import GradientLetters from "../../components/GradientLetters";
 import {
   AnimatedCardWrapper,
   InnerCardWrapper,
-} from "../ui/AnimatedCardWrapper";
+} from "../../ui/AnimatedCardWrapper";
 
 /**
  * MarketSlider component – carousel showcasing featured marketplace assets.

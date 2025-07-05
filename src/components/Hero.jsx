@@ -1,52 +1,37 @@
 import React from "react";
-import { Container, Typography, Button, Box } from "@mui/material";
+import { Container, Typography, Box } from "@mui/material";
 import { motion } from "framer-motion";
-import { KeyboardArrowDown, Title } from "@mui/icons-material";
-import BackgroundGlowEffect from "../ui/BackgroundGlowEffect";
+import { KeyboardArrowDown } from "@mui/icons-material";
 import GradientLetters from "./GradientLetters";
 import CustomButton from "./CustomButton";
 import { useNavigate } from "react-router-dom";
-import EarthGlb from "./EarthGlb"; // Three.js powered rotating globe
+import KeywordFlag from "./KeywordFlag";
 
 export default function Hero() {
   const navigate = useNavigate();
 
-  // Navigate to the Tokenization page
   const handleExplore = () => navigate("/tokenization");
-
-  // Placeholder for other actions (kept to avoid reference errors)
   const handleAction = () => navigate("/marketplace");
 
   return (
     <Box
       className="min-h-screen relative overflow-hidden"
       sx={{
-        backgroundImage: "url('/assets/sections/bg-hero-section-1.png')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
+        position: "relative",
+        backgroundImage: `
+          radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.75) 100%),
+          url('/assets/sections/bg-hero-section-1.png')
+        `,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
-      {/* Background video – shows after it loads, while the poster and underlying background image ensure a seamless fallback */}
-      {/* <video
-        className="absolute inset-0 w-full h-full object-cover z-0"
-        autoPlay
-        muted
-        loop
-        playsInline
-        poster="/assets/sections/rwa-hero-bg.png"
-      >
-        <source src="/assets/hero-section-bg-video.mp4" type="video/mp4" />
-      </video> */}
-      {/* Three.js rotating Earth background */}
-      {/* <Box className="absolute inset-0 -z-10 opacity-50 pointer-events-none">
-        <EarthGlb />
-      </Box> */}
       {/* Overlay gradient for better text readability */}
       <div className="absolute inset-0 bg-black/20">
         <Container
           maxWidth="xl"
-          className="relative z-20 px-4 sm:px-6 md:px-8" // Added responsive padding
+          className="relative z-20 px-4 sm:px-6 md:px-8"
         >
           <motion.div
             className="flex flex-col items-center justify-center min-h-screen text-center"
@@ -58,112 +43,55 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="w-full" // Added full width for better mobile alignment
+              className="w-full mt-20 mr-40"
             >
-              {/* Improved responsive heading with proper text scaling */}
-
-              <Typography
-                variant="h1"
-                className="mt-16 sm:mt-20 text-4xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 leading-tight sm:leading-snug text-center"
-                sx={{ wordBreak: "break-word" }}
+              {/* Keyword Flags – Hidden on mobile (xs) */}
+              <Box
+                sx={{
+                  position: "relative",
+                  width: "100%",
+                  height: "100vh",
+                  display: { xs: "none", sm: "block" },
+                }}
               >
-                {/* Large/Medium Screens: Full lines */}
-                <Box component="div" className="hidden md:block">
-                  <GradientLetters
-                    text="One Platform - All Chains"
-                    keyPrefix="line1-lg"
-                    className="gradient-letter-2"
-                  />
-                </Box>
-                <Box component="div" className="hidden md:block mt-1">
-                  <GradientLetters
-                    text="- No Barriers"
-                    keyPrefix="line2-char"
-                    className="gradient-letter-2"
-                  />
-                </Box>
+                <KeywordFlag text="Innovation" top="68%" left="89%" direction="left" />
+                <KeywordFlag text="Security" top="40%" left="65%" direction="right" />
+                <KeywordFlag text="Trust" top="35%" left="25%" direction="top" />
+                <KeywordFlag text="Accessibility" top="65%" left="25%" direction="top" />
+                <KeywordFlag text="Transparency" top="30%" left="90%" direction="bottom" />
+              </Box>
 
-                {/* Tablet Screens: Adjusted lines */}
-                <Box component="div" className="hidden sm:block md:hidden">
-                  <GradientLetters
-                    text="The Complete Ecosystem"
-                    keyPrefix="line1-md-1"
-                    className="gradient-letter-1"
-                  />
-                </Box>
-                <Box component="div" className="hidden sm:block md:hidden">
-                  <GradientLetters
-                    text="for Real World"
-                    keyPrefix="line1-md-2"
-                    className="gradient-letter-1"
-                  />
-                </Box>
-                <Box component="div" className="hidden sm:block md:hidden mt-1">
-                  <GradientLetters
-                    text="Asset Tokenization"
-                    keyPrefix="line2-md-1"
-                    className="gradient-letter-1"
-                  />
-                </Box>
-
-                {/* Mobile Screens: More compact lines */}
-                <Box component="div" className="block sm:hidden">
-                  <GradientLetters
-                    text="Complete Ecosystem"
-                    keyPrefix="line1-sm-1"
-                    className="gradient-letter-1"
-                  />
-                </Box>
-                <Box component="div" className="block sm:hidden">
-                  <GradientLetters
-                    text="for Real World Assets"
-                    keyPrefix="line1-sm-2"
-                    className="gradient-letter-1"
-                  />
-                </Box>
-                <Box component="div" className="block sm:hidden">
-                  <GradientLetters
-                    text="Tokenization"
-                    keyPrefix="line1-sm-3"
-                    className="gradient-letter-1"
-                  />
-                </Box>
-              </Typography>
-
-              {/* Improved subtitle with responsive text size and width */}
-              <Typography
-                variant="body1"
-                className="text-text-secondary mb-8 sm:mb-10 md:mb-12 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto text-base sm:text-lg text-white/80"
+              {/* Logo – Hidden on mobile (xs) */}
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: "18.8%",
+                  left: "35.8%",
+                  zIndex: 10,
+                  perspective: "1000px",
+                  display: { xs: "none", sm: "block" },
+                }}
               >
-                From issuance to AI-driven investing — Copym unlocks real-world
-                asset tokenization for everyone, with no gas, no fees, and no
-                limits.
-              </Typography>
-
-              {/* Responsive button container with improved spacing */}
-              <div className="flex justify-center px-4 sm:px-0">
-                <div className="md:flex lg:flex-row gap-3 sm:gap-4">
-                  <div className="my-3">
-                    <CustomButton
-                      label="Bring It On-Chain"
-                      onClick={handleExplore}
-                    />
-                  </div>
-
-                  <div className="my-3">
-                    <CustomButton
-                      label="Explore High-Yield Assets"
-                      onClick={() => handleAction()}
-                    />
-                  </div>
-                </div>
-              </div>
+                <Box
+                  sx={{
+                    transform: "rotateX(28deg) rotateY(-39deg)",
+                    transformStyle: "preserve-3d",
+                  }}
+                >
+                  <img
+                    src="/copym/png/Copym-05.png"
+                    alt="Copym Logo"
+                    style={{ height: 319, width: "auto" }}
+                  />
+                </Box>
+              </Box>
             </motion.div>
           </motion.div>
 
-          {/* Improved "Discover More" indicator with better mobile positioning */}
+          {/* Discover More CTA */}
           <motion.div
-            className="absolute bottom-14 sm:bottom-6 md:bottom-10 lg:bottom-2 left-1/2 transform -translate-x-1/2"
+            className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
+            style={{ zIndex: 20 }}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -192,10 +120,8 @@ export default function Hero() {
               <KeyboardArrowDown className="mt-1 sm:mt-2" />
             </Typography>
           </motion.div>
-        </Container>
 
-        {/* Background glow effect (commented out in original) */}
-        {/* <BackgroundGlowEffect /> */}
+        </Container>
       </div>
     </Box>
   );

@@ -13,8 +13,7 @@ import Navbar from "./components/Navbar";
 import Features from "./components/Features";
 import Hero from "./components/Hero";
 import Blockchains from "./components/Blockchains";
-import GlobalMarkets from "./components/GlobalMarkets";
-import TokenizationSlider from "./components/TokenizationSlider";
+// import GlobalMarkets from "./components/GlobalMarkets";
 import Metrics from "./components/Metrics";
 import Footer from "./components/Footer";
 import CTA from "./components/CTA";
@@ -39,8 +38,7 @@ import ArtMarket from "./pages/investor/ArtMarket/ArtMarket";
 import PrivateEquityMarket from "./pages/investor/PrivateEquityMarket/PrivateEquityMarket";
 import CarbonCreditsMarket from "./pages/investor/CarbonCreditsMarket/CarbonCreditsMarket";
 import BlogSection from "./components/BlogSection";
-import MarketSlider from "./components/MarketSlider";
-
+import Whatwedo from "./components/Whatwedo";
 /**
  * HomePage component - Main landing page layout
  * Wraps all homepage sections with the ScrollAnimationWrapper
@@ -93,6 +91,10 @@ function HomePage() {
         <GoldTokenizationPopup /> */}
 
         <ScrollAnimationWrapper>
+          <section className="Whatwedo-section">
+            <Whatwedo />
+          </section>
+
           <section className="blockchains-section">
             <Blockchains />
           </section>
@@ -105,15 +107,6 @@ function HomePage() {
         {/* <section className="global-markets-section">
           <GlobalMarkets />
         </section> */}
-
-        <section className="tokenizationslider-section">
-          <TokenizationSlider />
-        </section>
-
-        {/* Marketplace slider */}
-        <section className="marketslider-section">
-          <MarketSlider />
-        </section>
 
         <ScrollAnimationWrapper>
           <section className="metrics-section">

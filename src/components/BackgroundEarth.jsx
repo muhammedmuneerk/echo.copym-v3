@@ -345,7 +345,7 @@ const BackgroundEarth = () => {
           />
           
           {/* Subtle fog that doesn't affect globe */}
-          <fog attach="fog" args={['#030308', 100, 400]} />
+          
           
           <VibrantDarkBackground />
         </Canvas>

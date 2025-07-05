@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "react-router-dom"; // Added import for navigation links
 import TokenizationJourney from "./TokenizationJourney";
 import TokenizationComparison from "./TokenizationComparison";
+import TokenizationSlider from "./TokenizationSlider";
 import {
   GlassMorphismCard,
   MorphingButton,
@@ -571,6 +572,9 @@ export default function TokenizationHub() {
         {/* Tokenization Comparison Section */}
         <TokenizationComparison id="comparison" />
 
+        {/* Tokenization Slider Section */}
+        <TokenizationSlider />
+
         {/* CTA Section */}
         <section id="cta" className="section cta-section">
           <motion.div
@@ -660,7 +664,6 @@ export default function TokenizationHub() {
                 </Box>
               </Box>
             </Typography>
-
             <p className="section-description">
               Join thousands of businesses and investors already transforming
               their assets on the CopyM platform.

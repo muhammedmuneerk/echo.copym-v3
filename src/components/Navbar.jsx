@@ -14,21 +14,21 @@ import {
 } from "@mui/material";
 import { KeyboardArrowDown } from "@mui/icons-material";
 import { motion } from "framer-motion";
-import { 
-  X, 
-  Menu as MenuIcon, 
+import {
+  X,
+  Menu as MenuIcon,
   ArrowRight,
-  Leaf, 
-  RefreshCw, 
-  BarChart3, 
-  Coins, 
-  Building2, 
-  Palette, 
-  Droplet, 
-  Recycle, 
-  Briefcase, 
-  Link as LinkIcon, 
-  Store, 
+  Leaf,
+  RefreshCw,
+  BarChart3,
+  Coins,
+  Building2,
+  Palette,
+  Droplet,
+  Recycle,
+  Briefcase,
+  Link as LinkIcon,
+  Store,
   Home
 } from "lucide-react";
 import HamburgerMenu from "./HamburgerMenu";
@@ -48,7 +48,7 @@ const navigationItems = [
   {
     label: "Tokenization",
     icon: <RefreshCw size={18} className="text-green-500" />,
-    to:"/tokenization",
+    to: "/tokenization",
     // items: [
     //   { label: "Echo Asset Tokenization", to: "/tokenization", icon: <BarChart3 size={18} className="text-green-500" /> },
     //   { label: "Gold Tokenization Hub", to: "/tokenization/gold", icon: <Coins size={18} className="text-green-500" /> },
@@ -110,7 +110,7 @@ export default function Navbar() {
   const navContainerRef = useRef(null);
   const navItemRefs = useRef([]); // array of DOM nodes
   const [indicatorProps, setIndicatorProps] = useState({ left: 0, width: 0 });
-  
+
   // Check if current page is homepage
   const isHomePage = location.pathname === "/";
 
@@ -206,19 +206,23 @@ export default function Navbar() {
 
   return (
     <>
-      <AppBar 
-        position="absolute"
-        color="transparent"
-        elevation={scrolled ? 0 : 0} // No shadow/elevation when scrolled because of value 0 
+      <Box
+        className="relative left-1/2 transform -translate-x-1/2 z-50"
         sx={{
-          backdropFilter: scrolled ? "none" : "none",
-          backgroundColor: scrolled ? "transparent" : "transparent",
-          borderBottom: scrolled ? "none" : "none",
-          transition: "all 0.3s ease-in-out",
+          mt: 10,
+          px: 2, // add horizontal padding
+          width: '70vw',
+          maxWidth: '1200px', // makes it tighter on screens
+          borderRadius: '999px', // full rounded, pill-like
+          backgroundColor: 'rgba(18, 19, 26, 0.55)',
+          backdropFilter: 'blur(5px)',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.25)',
+          transition: 'all 0.3s ease-in-out',
         }}
       >
         <Container maxWidth="xl">
-          <Box className="flex items-center justify-between py-4 px-4">
+          <Box className="flex items-center justify-between py-1.5 px-4">
             {/* Logo */}
             <motion.div
               variants={logoVariants}
@@ -227,7 +231,6 @@ export default function Navbar() {
               whileHover="hover"
               className="flex-shrink-0"
             >
-              {/* Use onClick instead of Link component for more reliable navigation */}
               <Typography
                 component="div"
                 onClick={() => navigate("/")}
@@ -238,17 +241,16 @@ export default function Navbar() {
                   loading="lazy"
                   src="/copym/png/Copym-01-1.png"
                   alt="COPYM"
-                  className="h-16 w-auto sm:h-16 md:h-20 object-contain"
+                  className="h-10 w-auto sm:h-16 md:h-10 object-contain"
                 />
               </Typography>
             </motion.div>
 
-            {/* Desktop Navigation - On the right */}
+            {/* Desktop Navigation */}
             <Box
               ref={navContainerRef}
               className="hidden lg:flex items-center space-x-1 ml-auto relative"
               onMouseLeave={() => {
-                // revert to active route
                 const activeIndex = filteredNavigationItems.findIndex(
                   (itm) => itm.to && itm.to === location.pathname
                 );
@@ -259,7 +261,7 @@ export default function Navbar() {
                 }
               }}
             >
-              {/* moving underline indicator */}
+              {/* Underline indicator */}
               <Box
                 sx={{
                   position: "absolute",
@@ -312,9 +314,7 @@ export default function Navbar() {
                         anchorEl={menuAnchor}
                         open={activeMenu === item.label}
                         onClose={handleMenuClose}
-                        MenuListProps={{
-                          "aria-labelledby": "basic-button",
-                        }}
+                        MenuListProps={{ "aria-labelledby": "basic-button" }}
                         PaperProps={{
                           elevation: 8,
                           sx: {
@@ -426,14 +426,15 @@ export default function Navbar() {
             </motion.div>
           </Box>
         </Container>
-      </AppBar>
+      </Box>
 
       {/* Mobile Hamburger Menu Component */}
-      <HamburgerMenu 
+      <HamburgerMenu
         isOpen={mobileMenuOpen}
         onClose={closeMobileMenu}
         navigationItems={filteredNavigationItems}
       />
+
     </>
   );
 }

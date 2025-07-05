@@ -3,11 +3,11 @@ import { motion, useAnimation } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
 import { Box, Grid, Typography } from "@mui/material";
-import GradientLetters from "./GradientLetters";
+import GradientLetters from "../../components/GradientLetters";
 import {
   AnimatedCardWrapper,
   InnerCardWrapper,
-} from "../ui/AnimatedCardWrapper";
+} from "../../ui/AnimatedCardWrapper";
 
 // Enhanced card data with additional fields
 const cardData = [

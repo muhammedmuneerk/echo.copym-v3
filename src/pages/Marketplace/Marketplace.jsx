@@ -5,7 +5,7 @@ import GradientLetters from "../../components/GradientLetters";
 import { TrendingUp, MapPin, Coins, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom"; // Import Link for navigation
 import BackgroundPattern from "../../ui/BackgroundPattern";
-
+import MarketSlider from "./MarketSlider";
 const mockAssets = [
   {
     id: 1,
@@ -433,6 +433,9 @@ export default function Marketplace() {
             ))}
           </motion.div>
         </AnimatePresence>
+
+        {/* Market Slider Section */}
+        <MarketSlider />
       </div>
     </div>
   );
