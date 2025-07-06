@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Container, Typography, Grid, Box, Button } from '@mui/material';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowForward } from '@mui/icons-material';
@@ -78,9 +78,112 @@ const CameraBackground = ({ children }) => {
  * BlogSection – displays a grid of the latest blog posts / insights
  */
 const BlogSection = () => {
+  const [screenSize, setScreenSize] = useState("lg");
+
+  // Check screen size on mount and window resize
+  useEffect(() => {
+    const checkScreenSize = () => {
+      if (window.innerWidth >= 1024) {
+        setScreenSize("lg");
+      } else if (window.innerWidth >= 768) {
+        setScreenSize("md");
+      } else {
+        setScreenSize("sm");
+      }
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    
+    return () => {
+      window.removeEventListener('resize', checkScreenSize);
+    };
+  }, []);
+
   return (
     <Container maxWidth="lg" sx={{ py: { xs: 4, md: 8 } }}>
-      <CameraBackground>
+      {/* Camera background effect - only on medium and large screens */}
+      {screenSize !== "sm" ? (
+        <CameraBackground>
+          <Grid container spacing={2.5} justifyContent="center" 
+                  sx={{
+                  backgroundImage: 'url(/assets/sections/bg-blog-section.png)',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat',
+                  padding: '2rem 1rem',
+                  marginTop: '-2rem',
+                  paddingBottom: '4rem',
+                  marginLeft: '-10px',
+                  borderRadius: '2.5rem',
+                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+                  border: '5px solid rgba(255, 255, 255, 0.1)',
+                  backdropFilter: 'blur(10px)',
+                }}>
+        {/* Section heading */}
+        <Typography
+          variant="h3"
+          align="center"
+          gutterBottom
+          sx={{ fontWeight: 700, mb: 6, display: 'inline-block' }}
+          className='flex flex-wrap justify-center'
+        >
+          <GradientLetters text="Latest Insights" keyPrefix="blog-heading" />
+        </Typography>
+
+        {/* Blog cards grid */}
+        <Grid container spacing={{ xs: 4, md: 6 }}>
+          {blogs.map((blog, idx) => (
+            <Grid item xs={12} md={4} key={blog.title}>
+              <motion.div
+                initial={{ y: 40, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.6, delay: idx * 0.15 }}
+                viewport={{ once: true, amount: 0.3 }}
+              >
+                <AnimatedCard className="flex flex-col h-full">
+                  {/* Image */}
+                  <Box
+                    component="img"
+                    src={blog.image}
+                    alt={blog.title}
+                    sx={{ width: '100%', height: 200, objectFit: 'cover', borderRadius: '1.5rem', mb: 2 }}
+                  />
+
+                  {/* Card content */}
+                  <Box display="flex" flexDirection="column" flexGrow={1}>
+                    <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
+                      {blog.title}
+                    </Typography>
+                    <Typography
+                      variant="caption"
+                      color="text.secondary"
+                      sx={{ mb: 2 }}
+                    >
+                      {blog.date}
+                    </Typography>
+                    <Typography variant="body2" sx={{ mb: 3, flexGrow: 1 }}>
+                      {blog.excerpt}
+                    </Typography>
+
+                    {/* Read more button */}
+                    <Button
+                      endIcon={<ArrowForward fontSize="small" />}
+                      className="btn-primary mt-auto"
+                      size="small"
+                    >
+                      Read More
+                    </Button>
+                  </Box>
+                </AnimatedCard>
+              </motion.div>
+            </Grid>
+          ))}
+        </Grid>
+        </Grid>
+        </CameraBackground>
+      ) : (
+        // Small screens - no 3D effect
         <Grid container spacing={2.5} justifyContent="center" 
                 sx={{
                 backgroundImage: 'url(/assets/sections/bg-blog-section.png)',
@@ -96,68 +199,68 @@ const BlogSection = () => {
                 border: '5px solid rgba(255, 255, 255, 0.1)',
                 backdropFilter: 'blur(10px)',
               }}>
-      {/* Section heading */}
-      <Typography
-        variant="h3"
-        align="center"
-        gutterBottom
-        sx={{ fontWeight: 700, mb: 6, display: 'inline-block' }}
-        className='flex flex-wrap justify-center'
-      >
-        <GradientLetters text="Latest Insights" keyPrefix="blog-heading" />
-      </Typography>
+        {/* Section heading */}
+        <Typography
+          variant="h3"
+          align="center"
+          gutterBottom
+          sx={{ fontWeight: 700, mb: 6, display: 'inline-block' }}
+          className='flex flex-wrap justify-center'
+        >
+          <GradientLetters text="Latest Insights" keyPrefix="blog-heading" />
+        </Typography>
 
-      {/* Blog cards grid */}
-      <Grid container spacing={{ xs: 4, md: 6 }}>
-        {blogs.map((blog, idx) => (
-          <Grid item xs={12} md={4} key={blog.title}>
-            <motion.div
-              initial={{ y: 40, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.6, delay: idx * 0.15 }}
-              viewport={{ once: true, amount: 0.3 }}
-            >
-              <AnimatedCard className="flex flex-col h-full">
-                {/* Image */}
-                <Box
-                  component="img"
-                  src={blog.image}
-                  alt={blog.title}
-                  sx={{ width: '100%', height: 200, objectFit: 'cover', borderRadius: '1.5rem', mb: 2 }}
-                />
+        {/* Blog cards grid */}
+        <Grid container spacing={{ xs: 4, md: 6 }}>
+          {blogs.map((blog, idx) => (
+            <Grid item xs={12} md={4} key={blog.title}>
+              <motion.div
+                initial={{ y: 40, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.6, delay: idx * 0.15 }}
+                viewport={{ once: true, amount: 0.3 }}
+              >
+                <AnimatedCard className="flex flex-col h-full">
+                  {/* Image */}
+                  <Box
+                    component="img"
+                    src={blog.image}
+                    alt={blog.title}
+                    sx={{ width: '100%', height: 200, objectFit: 'cover', borderRadius: '1.5rem', mb: 2 }}
+                  />
 
-                {/* Card content */}
-                <Box display="flex" flexDirection="column" flexGrow={1}>
-                  <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
-                    {blog.title}
-                  </Typography>
-                  <Typography
-                    variant="caption"
-                    color="text.secondary"
-                    sx={{ mb: 2 }}
-                  >
-                    {blog.date}
-                  </Typography>
-                  <Typography variant="body2" sx={{ mb: 3, flexGrow: 1 }}>
-                    {blog.excerpt}
-                  </Typography>
+                  {/* Card content */}
+                  <Box display="flex" flexDirection="column" flexGrow={1}>
+                    <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
+                      {blog.title}
+                    </Typography>
+                    <Typography
+                      variant="caption"
+                      color="text.secondary"
+                      sx={{ mb: 2 }}
+                    >
+                      {blog.date}
+                    </Typography>
+                    <Typography variant="body2" sx={{ mb: 3, flexGrow: 1 }}>
+                      {blog.excerpt}
+                    </Typography>
 
-                  {/* Read more button */}
-                  <Button
-                    endIcon={<ArrowForward fontSize="small" />}
-                    className="btn-primary mt-auto"
-                    size="small"
-                  >
-                    Read More
-                  </Button>
-                </Box>
-              </AnimatedCard>
-            </motion.div>
-          </Grid>
-        ))}
-      </Grid>
-      </Grid>
-      </CameraBackground>
+                    {/* Read more button */}
+                    <Button
+                      endIcon={<ArrowForward fontSize="small" />}
+                      className="btn-primary mt-auto"
+                      size="small"
+                    >
+                      Read More
+                    </Button>
+                  </Box>
+                </AnimatedCard>
+              </motion.div>
+            </Grid>
+          ))}
+        </Grid>
+        </Grid>
+      )}
     </Container>
   );
 };

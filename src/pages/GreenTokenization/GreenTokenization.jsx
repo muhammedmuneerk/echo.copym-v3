@@ -65,7 +65,7 @@ const GreenTokenization = () => {
   return (
     <>
       <div className="text-white min-h-screen relative overflow-hidden font-sans">
-        <BackgroundPattern />
+        {/* <BackgroundPattern /> */}
         {/* Floating Navigation */}
         <FloatingNavigation sections={sections} activeSection={activeSection} />
         <ScrollAnimationWrapper>

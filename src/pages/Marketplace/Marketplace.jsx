@@ -183,7 +183,7 @@ export default function Marketplace() {
 
   return (
     <div className="min-h-screen relative overflow-hidden text-white">
-      <BackgroundPattern/>
+      {/* <BackgroundPattern/> */}
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Header Section */}
         <motion.div

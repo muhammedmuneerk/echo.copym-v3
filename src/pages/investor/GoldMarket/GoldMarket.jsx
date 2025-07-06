@@ -62,7 +62,7 @@ const GoldMarket = () => {
   return (
     <div className="min-h-screen relative text-white">
 
-      <BackgroundPattern />
+      {/* <BackgroundPattern /> */}
       <ScrollAnimationWrapper>
      
       {/* Hero Section */}

@@ -75,7 +75,7 @@ const RealEstateMarket = () => {
 
   return (
     <div className="min-h-screen relative text-white">
-      <BackgroundPattern />
+      {/* <BackgroundPattern /> */}
       <ScrollAnimationWrapper>
       {/* Hero Section */}
       <section id="hero" className="relative min-h-[90vh] flex items-center">

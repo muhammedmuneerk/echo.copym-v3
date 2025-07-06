@@ -78,7 +78,7 @@ const ArtTokenization = () => {
 
   return (
     <div className="text-white min-h-screen relative overflow-hidden font-sans">
-      <BackgroundPattern />
+      {/* <BackgroundPattern /> */}
       {/* Content sections continue from here */}
       {/* Hero Section */}
       <ScrollAnimationWrapper>

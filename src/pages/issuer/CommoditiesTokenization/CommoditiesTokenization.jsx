@@ -142,7 +142,7 @@ const CommoditiesTokenization = () => {
 
   return (
     <div className="min-h-screen text-white relative overflow-hidden">
-      <BackgroundPattern />
+      {/* <BackgroundPattern /> */}
       <ScrollAnimationWrapper>
       <div className="relative z-10">
         {/* Hero Section */}

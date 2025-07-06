@@ -262,7 +262,7 @@ export default function TokenizationHub() {
 
   return (
     <div className="tokenization-hub">
-      <BackgroundPattern />
+      {/* <BackgroundPattern /> */}
       <ScrollAnimationWrapper>
       {/* Main content */}
       <div className="main-content">

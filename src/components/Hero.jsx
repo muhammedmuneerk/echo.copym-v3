@@ -67,7 +67,7 @@ export default function Hero() {
 
           {/* Discover More CTA */}
           <motion.div
-            className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
+            className="absolute bottom-12 lg:bottom-20 left-1/2 transform -translate-x-1/2"
             style={{ zIndex: 20 }}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}

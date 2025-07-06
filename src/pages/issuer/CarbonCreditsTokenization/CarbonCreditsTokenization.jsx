@@ -44,7 +44,7 @@ const activeSection = useSectionObserver(sections);
 
   return (
     <div className="text-white min-h-screen relative overflow-hidden font-sans">
-      <BackgroundPattern />
+      {/* <BackgroundPattern /> */}
       {/* Hero Section */}
       <ScrollAnimationWrapper>
       <section id="hero" className="relative container mx-auto px-6 py-24">

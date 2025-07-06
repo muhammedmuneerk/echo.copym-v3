@@ -85,6 +85,27 @@ export default function Blockchains() {
   const [slot1Icon, setSlot1Icon] = useState(0);
   const [slot2Icon, setSlot2Icon] = useState(1);
   const [slot3Icon, setSlot3Icon] = useState(2);
+  const [screenSize, setScreenSize] = useState("lg");
+
+  // Check screen size on mount and window resize
+  useEffect(() => {
+    const checkScreenSize = () => {
+      if (window.innerWidth >= 1024) {
+        setScreenSize("lg");
+      } else if (window.innerWidth >= 768) {
+        setScreenSize("md");
+      } else {
+        setScreenSize("sm");
+      }
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    
+    return () => {
+      window.removeEventListener('resize', checkScreenSize);
+    };
+  }, []);
 
   // Function to handle visibility changes
   useEffect(() => {
@@ -202,8 +223,217 @@ export default function Blockchains() {
 
       {/* Content Container */}
       <Container maxWidth="xl" sx={{ position: "relative", zIndex: 1 }}>
-        {/* Outer Grid now carries the section background with scroll-triggered 3D tilt effect */}
-        <CameraBackground>
+        {/* Outer Grid with scroll-triggered 3D tilt effect - only on medium and large screens */}
+        {screenSize !== "sm" ? (
+          <CameraBackground>
+            <Grid
+              container
+              sx={{
+                backgroundImage: 'url(/assets/sections/bg-blockchains-section-1.png)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                borderRadius: "2.5rem",
+                backgroundRepeat: 'no-repeat',
+                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+                border: '5px solid rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(10px)',
+                minHeight: '400px',
+              }}
+            >
+              <Grid item xs={12}>
+                <Grid container spacing={isMobile ? 1 : 2} alignItems="center">
+                  {/* Text section */}
+                  <Grid item xs={12} md={6}>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8 }}
+                      viewport={{ once: true }}
+                      className="mb-8 md:mb-12 mt-3 md:-mt-28"
+                    >
+                      <Typography
+                        variant="h2"
+                        className="text-3xl sm:text-4xl md:text-5xl mb-2 md:mb-4 pb-1 text-center"
+                      >
+                        {/* First Line */}
+                        <Box component="div" className="flex flex-wrap justify-center">
+                          <GradientLetters text="Unified Access to All" keyPrefix="line1" />
+                        </Box>
+
+                        {/* Second Line */}
+                        <Box component="div" className="flex flex-wrap justify-center mt-1">
+                          <GradientLetters text="Major Blockchains" keyPrefix="line2" />
+                        </Box>
+                      </Typography>
+
+                      <Typography
+                        variant="body1"
+                        className=" max-w-2xl mx-auto text-center text-sm sm:text-base px-4"
+                      >
+                        Tokenize assets on your preferred blockchain. Copym provides
+                        seamless integration with all major networks through a single,
+                        unified platform.
+                      </Typography>
+                    </motion.div>
+                  </Grid>
+
+                  {/* Hidden on mobile, visible on desktop */}
+                  <Grid
+                    item
+                    xs={12}
+                    md={6}
+                    sx={{
+                      display: { xs: "none", md: "block" },
+                      opacity: "10",
+                      // marginBottom: "-50px",
+                    }}
+                  >
+                    <Box sx={{ position: "relative", width: "100%", height: "450px" }}>
+                      {/* Space reserved for the 3D model */}
+                    </Box>
+                  </Grid>
+                </Grid>
+              </Grid>
+
+              {/* Blockchain Image for Mobile - Between description and icons */}
+              {isMobile && (
+                <Grid item xs={12}>
+                  <Box sx={{ 
+                    width: "100%",
+                    zIndex: 0, 
+                    opacity: 0.5,
+                    height: globeStyles.height,
+                    marginTop: "40px",
+                    marginBottom: "-40px",
+                    pointerEvents: "none",
+                    padding: "20px"
+                  }}>
+                    <img 
+                      loading="lazy"
+                      src="/assets/sections/blockchain-1.png" 
+                      alt="Blockchain" 
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain"
+                      }}
+                    />
+                  </Box>
+                </Grid>
+              )}
+
+              {/* Blockchain icons display */}
+              <Grid item xs={12}>
+                <Box
+                  sx={{
+                    position: "relative",
+                    width: "100%",
+                    mt: isMobile ? 4 : isTablet ? 3 : 1,
+                    mb: isMobile ? 4 : isTablet ? 3 : 1,
+                    display: "flex",
+                    justifyContent: "space-evenly",
+                    zIndex: isMobile ? 2 : 1,
+                    px: isMobile ? 1 : 0,
+                  }}
+                >
+                  {/* Slot 1 */}
+                  <Box
+                    sx={{
+                      width: slotStyles.width,
+                      position: "relative",
+                      height: slotStyles.height,
+                      overflow: "hidden",
+                    }}
+                  >
+                    <AnimatePresence mode="popLayout">
+                      <motion.div
+                        key={`slot1-${slot1Icon}-${key}`}
+                        initial={{ opacity: 0, y: 100 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -100 }}
+                        transition={{ 
+                          type: "spring",
+                          stiffness: 120,
+                          damping: 20,
+                          duration: 0.8
+                        }}
+                        whileHover={{ opacity: 1, scale: 1.05 }}
+                        className="w-full h-full flex items-center justify-center"
+                      >
+                        <Box className={iconSizeClass}>
+                          {blockchains[slot1Icon].logo}
+                        </Box>
+                      </motion.div>
+                    </AnimatePresence>
+                  </Box>
+                  
+                  {/* Slot 2 */}
+                  <Box
+                    sx={{
+                      width: slotStyles.width,
+                      position: "relative",
+                      height: slotStyles.height,
+                      overflow: "hidden",
+                    }}
+                  >
+                    <AnimatePresence mode="popLayout">
+                      <motion.div
+                        key={`slot2-${slot2Icon}-${key}`}
+                        initial={{ opacity: 0, y: 100 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -100 }}
+                        transition={{ 
+                          type: "spring",
+                          stiffness: 120,
+                          damping: 20,
+                          duration: 0.8
+                        }}
+                        whileHover={{ opacity: 1, scale: 1.05 }}
+                        className="w-full h-full flex items-center justify-center"
+                      >
+                        <Box className={iconSizeClass}>
+                          {blockchains[slot2Icon].logo}
+                        </Box>
+                      </motion.div>
+                    </AnimatePresence>
+                  </Box>
+                  
+                  {/* Slot 3 */}
+                  <Box
+                    sx={{
+                      width: slotStyles.width,
+                      position: "relative",
+                      height: slotStyles.height,
+                      overflow: "hidden",
+                    }}
+                  >
+                    <AnimatePresence mode="popLayout">
+                      <motion.div
+                        key={`slot3-${slot3Icon}-${key}`}
+                        initial={{ opacity: 0, y: 100 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -100 }}
+                        transition={{ 
+                          type: "spring",
+                          stiffness: 120,
+                          damping: 20,
+                          duration: 0.8
+                        }}
+                        whileHover={{ opacity: 1, scale: 1.05 }}
+                        className="w-full h-full flex items-center justify-center"
+                      >
+                        <Box className={iconSizeClass}>
+                          {blockchains[slot3Icon].logo}
+                        </Box>
+                      </motion.div>
+                    </AnimatePresence>
+                  </Box>
+                </Box>
+              </Grid>
+            </Grid>
+          </CameraBackground>
+        ) : (
+          // Small screens - no 3D effect
           <Grid
             container
             sx={{
@@ -227,7 +457,7 @@ export default function Blockchains() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                     viewport={{ once: true }}
-                    className="mb-8 md:mb-12 -mt-28"
+                    className="mb-8 md:mb-12 mt-10 md:-mt-28"
                   >
                     <Typography
                       variant="h2"
@@ -409,7 +639,7 @@ export default function Blockchains() {
               </Box>
             </Grid>
           </Grid>
-        </CameraBackground>
+        )}
       </Container>
 
       {/* Background glow effect commented out as in original code */}

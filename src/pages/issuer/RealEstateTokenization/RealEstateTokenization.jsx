@@ -78,7 +78,7 @@ const RealEstateTokenization = () => {
 
   return (
     <div className="relative">
-      <BackgroundPattern />
+      {/* <BackgroundPattern /> */}
       <ScrollAnimationWrapper>
       {/* Hero Section */}
       <section id="hero" className="relative container mx-auto px-6 py-24">

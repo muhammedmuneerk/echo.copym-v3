@@ -1,11 +1,13 @@
 import React, { useRef } from "react";
-import { Container, Box, Grid, Typography } from "@mui/material";
+import { Container, Box, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { motion, useScroll, useTransform } from "framer-motion";
 import CustomButton from "./CustomButton";
 import { useNavigate } from "react-router-dom";
+import GradientLetters from "./GradientLetters";
 
 // Background motion effect
-const CameraBackground = ({ children }) => {
+const CameraBackground = ({ children, disable = false }) => {
+  if (disable) return <>{children}</>; // Return plain children when disabled (e.g., on small screens)
   const backgroundRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: backgroundRef,
@@ -52,13 +54,15 @@ const CameraBackground = ({ children }) => {
 
 const WhatWeDo = () => {
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const handleExplore = () => navigate("/tokenization");
   const handleAction = () => navigate("/marketplace");
 
   return (
     <Box id="what-we-do-section" className="py-12 md:py-16 lg:py-10 relative overflow-hidden">
       <Container maxWidth="xl" sx={{ position: "relative", zIndex: 1 }}>
-        <CameraBackground>
+        <CameraBackground disable={isMobile}>
           <Grid
             container
             sx={{
@@ -71,56 +75,83 @@ const WhatWeDo = () => {
               border: '5px solid rgba(255, 255, 255, 0.1)',
               backdropFilter: 'blur(10px)',
               minHeight: '580px',
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "space-between",
-              px: { xs: 2, sm: 6, md: 10 },
+              px: { xs: 2, sm: 4, md: 6 },
               py: { xs: 6, sm: 8, md: 10 },
-              textAlign: "center"
             }}
           >
-            {/* Top Left Content */}
-            <Box
-              sx={{
-                position: "absolute",
-                top: 24,
-                left: 32,
-                maxWidth: "380px",
-                textAlign: "left"
-              }}
-            >
-              <Typography variant="h5" fontWeight={600} gutterBottom>
-                Tokenization Made Simple
-              </Typography>
-              <Typography variant="body1" color="white" sx={{ opacity: 0.85 }}>
-                Understand how assets like gold, real estate, and collectibles move on-chain using our simplified process.
-              </Typography>
-            </Box>
+            {/* Content Row */}
+            <Grid item xs={12}>
+              <Grid container spacing={{ xs: 4, md: 2 }} alignItems="flex-start">
+                {/* Left Column: Title & Description */}
+                <Grid item xs={12} md={6}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    viewport={{ once: true }}
+                  >
+                    <Typography
+                      variant="h2"
+                      className="text-3xl sm:text-4xl md:text-5xl mb-2 md:mb-4 pb-1 text-center md:text-left"
+                    >
+                      {/* Small screens: two-line title */}
+                      <Box className="block md:hidden">
+                        <Box className="flex flex-wrap justify-center">
+                          <GradientLetters text="Tokenization Made" keyPrefix="sm-line1" />
+                        </Box>
+                        <Box className="flex flex-wrap justify-center mt-1">
+                          <GradientLetters text="Simple" keyPrefix="sm-line2" />
+                        </Box>
+                      </Box>
 
-            {/* Centered Image */}
-          <Box sx={{ mt: 8, mb: 4 }}>
-  <img
-    src="/assets/images/flowchart-removebg.png"
-    alt="Tokenization Flowchart"
-    style={{
-      maxWidth: "100%",
-      height: "auto",
-      maxHeight: "340px",
-      borderRadius: "16px",
-      boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
-      opacity: 0.85, // slightly transparent
-      // border: "4px solid rgba(0, 255, 128, 0.3)" // soft white border
-    }}
-  />
-</Box>
+                      {/* Medium & large screens: single-line title */}
+                      <Box className="hidden md:flex flex-wrap justify-start">
+                        <GradientLetters text="Tokenization Made Simple" keyPrefix="lg-line" />
+                      </Box>
+                    </Typography>
+                    <Typography
+                      variant="body1"
+                      className="max-w-md text-center md:text-left text-sm sm:text-base"
+                      sx={{ color: 'white', opacity: 0.9 }}
+                    >
+                      Understand how assets like gold, real estate, and collectibles move on-chain using our simplified process.
+                    </Typography>
+                  </motion.div>
+                </Grid>
 
+                {/* Right Column: Image */}
+                <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8 }}
+                    viewport={{ once: true }}
+                  >
+                    <Box component="img"
+                      src="/assets/images/copym-platform.png"
+                      alt="Tokenization Flowchart"
+                      sx={{
+                        width: '100%',
+                        maxWidth: '500px',
+                        height: '100%',
+                        borderRadius: '2.5rem',
+                        boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+                        border: '5px solid rgba(255, 255, 255, 0.1)',
+                        opacity: 0.85,
+                      }}
+                    />
+                  </motion.div>
+                </Grid>
+              </Grid>
+            </Grid>
 
-            {/* Buttons at Bottom */}
-            <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap", justifyContent: "center" }}>
-              <CustomButton label="Bring It On-Chain" onClick={handleExplore} />
-              <CustomButton label="Explore High-Yield Assets" onClick={handleAction} />
-            </Box>
+            {/* Buttons Row */}
+            <Grid item xs={12} sx={{ mt: { xs: 4, md: 6 } }}>
+              <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', justifyContent: 'center' }}>
+                <CustomButton label="Bring It On-Chain" onClick={handleExplore} />
+                <CustomButton label="Explore High-Yield Assets" onClick={handleAction} />
+              </Box>
+            </Grid>
           </Grid>
         </CameraBackground>
       </Container>

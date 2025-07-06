@@ -178,8 +178,71 @@ export default function Features() {
           </Typography>
         </motion.div>
 
-        {/* Card grid with camera-based 3D background effect */}
-        <CameraBackground>
+        {/* Card grid with camera-based 3D background effect - only on medium and large screens */}
+        {screenSize !== "sm" ? (
+          <CameraBackground>
+            <Grid container spacing={2.5} justifyContent="center" 
+            sx={{
+            backgroundImage: 'url(/assets/sections/bg-features-section-2-1.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            padding: '2rem 1rem',
+            marginTop: '-2rem',
+            paddingBottom: '4rem',
+            marginLeft: '-10px',
+            borderRadius: '2.5rem',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+            border: '5px solid rgba(255, 255, 255, 0.1)',
+            backdropFilter: 'blur(10px)',
+          }}>
+            {features.map((feature, index) => (
+              <Grid item xs={12} sm={6} md={4} lg={4} key={feature.title} sx={{ display: 'flex', justifyContent: 'center',  }}>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="h-full bg-white/5 rounded-2xl -ml-6"
+                >
+                  <AnimatedCard style={{ perspective: "1000px" }}>
+                    
+                    {/* Wrap content in a div for 3D effect */}
+                    <div className="card-content">
+                      <Box
+                        className="w-12 h-12 rounded-2xl mb-4 flex items-center justify-center text-2xl card-icon"
+                        sx={{
+                          background: "rgba(255, 255, 255, 0.05)",
+                          backdropFilter: "blur(5px)",
+                          boxShadow: "inset 0 0 0 1px rgba(255, 255, 255, 0.05)",
+                        }}
+                      >
+                        {feature.icon}
+                      </Box>
+                      <Typography variant="h5" className="mb-3">
+                        {feature.title}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        className="text-text-secondary mb-4"
+                      >
+                        {feature.description}
+                      </Typography>
+                      <Button
+                        endIcon={<ArrowForward />}
+                        className="text-primary hover:bg-primary/5 px-0 pb-0 mb-0"
+                      >
+                        Learn more
+                      </Button>
+                    </div>
+                  </AnimatedCard>
+                </motion.div>
+              </Grid>
+                        ))}
+            </Grid>
+          </CameraBackground>
+        ) : (
+          // Small screens - no 3D effect
           <Grid container spacing={2.5} justifyContent="center" 
           sx={{
           backgroundImage: 'url(/assets/sections/bg-features-section-2-1.png)',
@@ -239,7 +302,7 @@ export default function Features() {
             </Grid>
                       ))}
           </Grid>
-        </CameraBackground>
+        )}
       </Container>
     </Box>
   );
