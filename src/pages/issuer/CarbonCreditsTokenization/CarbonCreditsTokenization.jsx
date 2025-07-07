@@ -44,10 +44,12 @@ const activeSection = useSectionObserver(sections);
 
   return (
     <div className="text-white min-h-screen relative overflow-hidden font-sans">
+      {/* Full-viewport background overlay */}
+      <div className="carboncredits-tokenization-bg fixed inset-0 -z-10"></div>
       {/* <BackgroundPattern /> */}
       {/* Hero Section */}
       <ScrollAnimationWrapper>
-      <section id="hero" className="relative container mx-auto px-6 py-24">
+      <section id="hero" className="relative container mx-auto px-6 py-24 -mt-20 lg:-mt-28">
         <FadeSection>
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-10 text-left pt-8">
             {/* Content Section - Left */}
@@ -108,7 +110,7 @@ const activeSection = useSectionObserver(sections);
             </div>
 
             {/* Leaf Icon - Right */}
-            <div className="relative w-full md:w-1/2 flex items-start justify-center md:justify-start md:-mt-20">
+            <div className="relative w-full md:w-1/2 flex items-start justify-center md:justify-start -mt-28 md:-mt-20">
               <div className="w-[450px] md:w-[600px] h-[450px] md:h-[600px] md:ml-0 flex items-center justify-center">
                 <img 
                   src="/assets/sections/carboncredits-tokenization-1.png" 

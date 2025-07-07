@@ -64,11 +64,11 @@ function HomePage() {
           left: 0,
           width: '100%',
           height: '100vh',
-          zIndex: 1,
-          opacity: heroOpacity,
-          scale: heroScale,
-          y: heroY,
-          pointerEvents: scrollY.get() > viewportH ? 'none' : undefined,
+          // zIndex: 1,
+          // opacity: heroOpacity,
+          // scale: heroScale,
+          // y: heroY,
+          // pointerEvents: scrollY.get() > viewportH ? 'none' : undefined,
         }}
       >
         <Hero />
@@ -90,7 +90,7 @@ function HomePage() {
         {/* <GreenTokenizationPopup />
         <GoldTokenizationPopup /> */}
 
-        <ScrollAnimationWrapper>
+        {/* <ScrollAnimationWrapper> */}
           <section className="Whatwedo-section">
             <Whatwedo />
           </section>
@@ -102,13 +102,13 @@ function HomePage() {
           <section className="features-section">
             <Features />
           </section>
-        </ScrollAnimationWrapper>
+        {/* </ScrollAnimationWrapper> */}
 
         {/* <section className="global-markets-section">
           <GlobalMarkets />
         </section> */}
 
-        <ScrollAnimationWrapper>
+        {/* <ScrollAnimationWrapper> */}
           <section className="metrics-section">
             <Metrics />
           </section>
@@ -121,7 +121,7 @@ function HomePage() {
           <section className="cta-section">
             <CTA />
           </section>
-        </ScrollAnimationWrapper>
+        {/* </ScrollAnimationWrapper> */}
       </div>
     </div>
   );
@@ -180,7 +180,7 @@ function App() {
       className="min-h-screen relative bg-custom-gradient text-text-primary overflow-x-hidden"
     >
       {/* Background 3D Earth Model */}
-      <BackgroundEarth />
+      {/* <BackgroundEarth /> */}
       
       {/* Overlay gradient for better readability */}
       <div className="fixed inset-0 bg-black/30 z-10"></div>

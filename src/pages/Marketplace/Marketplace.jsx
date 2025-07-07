@@ -183,8 +183,10 @@ export default function Marketplace() {
 
   return (
     <div className="min-h-screen relative overflow-hidden text-white">
+      {/* Full-viewport background overlay */}
+      <div className="marketplace-bg fixed inset-0 -z-10"></div>
       {/* <BackgroundPattern/> */}
-      <div className="container mx-auto px-4 max-w-7xl">
+      <div className="container mx-auto px-4 max-w-7xl -mt-20 lg:-mt-28">
         {/* Header Section */}
         <motion.div
           initial={{ opacity: 0, y: -50 }}

@@ -164,11 +164,13 @@ const DiverseAssetTokenization = () => {
   
   return (
     <div className="text-white min-h-screen relative overflow-hidden font-sans">
+      {/* Full-viewport background overlay */}
+      <div className="diverseasset-tokenization-bg fixed inset-0 -z-10"></div>
       <ScrollAnimationWrapper>
         <FloatingNavigation sections={sections} activeSection={activeSection} />
         {/* Header Section */}
         <div className="relative overflow-hidden">
-          <section id="intro" className="relative container mx-auto px-6 py-24">
+          <section id="intro" className="relative container mx-auto px-6 py-24 -mt-20 lg:-mt-26">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
               {/* Left side – headline & CTA */}
               <div className="max-w-4xl lg:max-w-none relative">
@@ -231,7 +233,7 @@ const DiverseAssetTokenization = () => {
               </div>
 
               {/* Right side – illustrative graphic */}
-              <div className="flex justify-center lg:justify-end mt-20 lg:mt-0">
+              <div className="flex justify-center lg:justify-end -mt-10 md:-mt-6">
                 <div className="relative">
                   <img
                     src="/assets/sections/otherassets-tokenization-2.png"

@@ -4,7 +4,7 @@ import BackgroundGlowEffect from "../ui/BackgroundGlowEffect";
 
 export default function Footer() {
   return (
-    <Box className="py-24 relative">
+    <Box className="py-24 relative z-30">
       <Container maxWidth="xl">
         {/* Footer Content */}
         <Box

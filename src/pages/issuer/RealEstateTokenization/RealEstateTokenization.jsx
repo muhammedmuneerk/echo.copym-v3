@@ -77,11 +77,12 @@ const RealEstateTokenization = () => {
   // Removed animation variants that were used for initial loading
 
   return (
-    <div className="relative">
-      {/* <BackgroundPattern /> */}
+    <div className="relative text-white">
+      {/* Full-viewport background overlay */}
+      <div className="realestate-tokenization-bg fixed inset-0 -z-10"></div>
       <ScrollAnimationWrapper>
       {/* Hero Section */}
-      <section id="hero" className="relative container mx-auto px-6 py-24">
+      <section id="hero" className="relative container mx-auto px-6 py-24 -mt-20 lg:-mt-28">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center  relative z-10">
           {/* Left side - existing content */}
           <div className="max-w-4xl lg:max-w-none">
@@ -93,7 +94,13 @@ const RealEstateTokenization = () => {
                 {/* Large Screens (1 lines) */}
                 <Box className="hidden lg:block">
                   <GradientLetters
-                    text="Real Estate Tokenization"
+                    text="Real Estate"
+                    keyPrefix="lg-line1"
+                  />
+                </Box>
+                <Box className="hidden lg:block">
+                  <GradientLetters
+                    text="Tokenization"
                     keyPrefix="lg-line1"
                   />
                 </Box>

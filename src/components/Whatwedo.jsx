@@ -60,23 +60,28 @@ const WhatWeDo = () => {
   const handleAction = () => navigate("/marketplace");
 
   return (
-    <Box id="what-we-do-section" className="py-12 md:py-16 lg:py-10 relative overflow-hidden">
+    <Box id="what-we-do-section" className="py-12 md:py-16 lg:py-10 relative overflow-hidden"
+    // sx={{
+    //           backgroundImage: 'url(/assets/sections/bg-features-section.png)',
+    //           backgroundSize: 'cover',
+    //           backgroundPosition: 'center',
+    //           borderRadius: "2.5rem",
+    //           backgroundRepeat: 'no-repeat',
+    //           boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+    //           border: '5px solid rgba(255, 255, 255, 0.1)',
+    //           backdropFilter: 'blur(10px)',
+    //           minHeight: '580px',
+    //           px: { xs: 2, sm: 4, md: 6 },
+    //           py: { xs: 6, sm: 8, md: 10 },
+    //         }}
+    >
       <Container maxWidth="xl" sx={{ position: "relative", zIndex: 1 }}>
-        <CameraBackground disable={isMobile}>
+        {/* <CameraBackground disable={isMobile}> */}
           <Grid
             container
             sx={{
-              backgroundImage: 'url(/assets/sections/bg-features-section.png)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              borderRadius: "2.5rem",
-              backgroundRepeat: 'no-repeat',
-              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-              border: '5px solid rgba(255, 255, 255, 0.1)',
-              backdropFilter: 'blur(10px)',
-              minHeight: '580px',
               px: { xs: 2, sm: 4, md: 6 },
-              py: { xs: 6, sm: 8, md: 10 },
+           py: { xs: 6, sm: 8, md: 10 },
             }}
           >
             {/* Content Row */}
@@ -153,7 +158,7 @@ const WhatWeDo = () => {
               </Box>
             </Grid>
           </Grid>
-        </CameraBackground>
+        {/* </CameraBackground> */}
       </Container>
     </Box>
   );

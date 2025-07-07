@@ -198,6 +198,17 @@ export default function Blockchains() {
     <Box
       id="blockchains-section"
       className="py-12 md:py-16 lg:py-10 relative overflow-hidden"
+      //  sx={{
+      //           backgroundImage: 'url(/assets/sections/bg-blockchains-section-1.png)',
+      //           backgroundSize: 'cover',
+      //           backgroundPosition: 'center',
+      //           borderRadius: "2.5rem",
+      //           backgroundRepeat: 'no-repeat',
+      //           boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+      //           border: '5px solid rgba(255, 255, 255, 0.1)',
+      //           backdropFilter: 'blur(10px)',
+      //           minHeight: '400px',
+      //         }}
     >
       {/* Blockchain Image - For tablet and desktop only */}
       {!isMobile && (
@@ -215,7 +226,7 @@ export default function Blockchains() {
           display: "flex",
           justifyContent: "flex-end",
         }}>
-          <Box className="ml-28 pl-28  -mt-24 "  sx={{ width: "100%", height: "100%",  }}>
+          <Box className="ml-28 pl-28  -mt-24 hidden"  sx={{ width: "100%", height: "100%",  }}>
             <TokenizationAnimation />
           </Box>
         </Box>
@@ -225,20 +236,10 @@ export default function Blockchains() {
       <Container maxWidth="xl" sx={{ position: "relative", zIndex: 1 }}>
         {/* Outer Grid with scroll-triggered 3D tilt effect - only on medium and large screens */}
         {screenSize !== "sm" ? (
-          <CameraBackground>
+          // <CameraBackground>
             <Grid
               container
-              sx={{
-                backgroundImage: 'url(/assets/sections/bg-blockchains-section-1.png)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                borderRadius: "2.5rem",
-                backgroundRepeat: 'no-repeat',
-                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-                border: '5px solid rgba(255, 255, 255, 0.1)',
-                backdropFilter: 'blur(10px)',
-                minHeight: '400px',
-              }}
+             
             >
               <Grid item xs={12}>
                 <Grid container spacing={isMobile ? 1 : 2} alignItems="center">
@@ -431,7 +432,7 @@ export default function Blockchains() {
                 </Box>
               </Grid>
             </Grid>
-          </CameraBackground>
+          // </CameraBackground>
         ) : (
           // Small screens - no 3D effect
           <Grid

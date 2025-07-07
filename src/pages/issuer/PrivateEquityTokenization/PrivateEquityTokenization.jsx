@@ -43,6 +43,8 @@ const PrivateEquityTokenization = () => {
 
   return (
     <div className="text-white min-h-screen relative overflow-hidden font-sans">
+      {/* Full-viewport background overlay */}
+      <div className="privateequity-tokenization-bg fixed inset-0 -z-10"></div>
       {/* <BackgroundPattern/> */}
 
       <ScrollAnimationWrapper>
@@ -53,7 +55,7 @@ const PrivateEquityTokenization = () => {
       <div className="relative z-10 px-6 pt-24 pb-24 space-y-24">
         {/* Hero Section */}
         <FadeSection>
-          <div id="hero" className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-6 md:gap-10 text-left">
+          <div id="hero" className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-6 md:gap-10 text-left -mt-20 lg:-mt-26">
             {/* Content Section - Left */}
             <div className="relative w-full md:w-1/2 z-10 md:-mt-20">
               <div className="font-orbitron font-bold text-3xl sm:text-4xl md:text-5xl mb-6 text-center md:text-left">
@@ -112,7 +114,7 @@ const PrivateEquityTokenization = () => {
             </div>
 
             {/* Chart Icon - Right */}
-            <div className="relative w-full md:w-1/2 flex items-start justify-center md:justify-start md:-mt-20">
+            <div className="relative w-full md:w-1/2 flex items-start justify-center md:justify-start -mt-28 md:-mt-20">
               <div className="w-[450px] md:w-[600px] h-[450px] md:h-[600px] md:ml-0 flex items-center justify-center">
                 <img 
                   src="/assets/sections/privateequity-tokenization-1.png" 

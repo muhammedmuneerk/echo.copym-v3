@@ -141,7 +141,9 @@ const CommoditiesTokenization = () => {
   };
 
   return (
-    <div className="min-h-screen text-white relative overflow-hidden">
+    <div className="min-h-screen text-white relative overflow-hidden -mt-20 lg:-mt-28">
+      {/* Full-viewport background overlay */}
+      <div className="commodities-tokenization-bg fixed inset-0 -z-10"></div>
       {/* <BackgroundPattern /> */}
       <ScrollAnimationWrapper>
       <div className="relative z-10">
@@ -212,7 +214,7 @@ const CommoditiesTokenization = () => {
             </div>
 
             {/* Right: Image */}
-            <div className="relative w-full md:w-1/2 flex items-center justify-center md:justify-start md:-mt-20">
+            <div className="relative w-full md:w-1/2 flex items-center justify-center md:justify-start -mt-28 md:-mt-20">
               <div className="w-[450px] md:w-[600px] h-[450px] md:h-[600px] md:ml-0 flex items-center justify-center md:pt-20">
                 <img 
                   src="/assets/sections/commodites-tokenization-1.png" 

@@ -64,8 +64,10 @@ const GreenTokenization = () => {
 
   return (
     <>
+      {/* Full-viewport background overlay */}
+      <div className="green-tokenization-bg fixed inset-0 -z-10"></div>
+
       <div className="text-white min-h-screen relative overflow-hidden font-sans">
-        {/* <BackgroundPattern /> */}
         {/* Floating Navigation */}
         <FloatingNavigation sections={sections} activeSection={activeSection} />
         <ScrollAnimationWrapper>
@@ -136,7 +138,7 @@ const GreenTokenization = () => {
               </div>
 
               {/* Go Green Image Section - Right */}
-              <div className="relative w-full md:w-1/2 flex items-center justify-center md:justify-end">
+              {/* <div className="relative w-full md:w-1/2 flex items-center justify-center md:justify-end">
                 <div className="relative w-[400px] h-[400px] md:w-[500px] md:h-[500px] overflow-visible">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <img 
@@ -146,7 +148,7 @@ const GreenTokenization = () => {
                     />
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </FadeSection>
         </section>

@@ -78,11 +78,13 @@ const ArtTokenization = () => {
 
   return (
     <div className="text-white min-h-screen relative overflow-hidden font-sans">
+      {/* Full-viewport background overlay */}
+      <div className="art-tokenization-bg fixed inset-0 -z-10"></div>
       {/* <BackgroundPattern /> */}
       {/* Content sections continue from here */}
       {/* Hero Section */}
       <ScrollAnimationWrapper>
-      <section id="hero" className="relative container mx-auto px-6 py-24">
+      <section id="hero" className="relative container mx-auto px-6 py-24 -mt-20 lg:-mt-28">
         <FadeSection>
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-10 text-left pt-8">
             {/* Content Section - Left */}

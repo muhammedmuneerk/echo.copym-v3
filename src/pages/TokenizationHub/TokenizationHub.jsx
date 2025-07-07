@@ -262,19 +262,21 @@ export default function TokenizationHub() {
 
   return (
     <div className="tokenization-hub">
+      {/* Full-viewport background overlay */}
+      <div className="tokenization-hub-bg fixed inset-0 -z-10"></div>
       {/* <BackgroundPattern /> */}
       <ScrollAnimationWrapper>
       {/* Main content */}
       <div className="main-content">
         {/* Header Section */}
-        <section id="intro" className="section intro-section">
+        <section id="intro" className="section intro-section -mt-20 lg:-mt-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
             className="intro-content"
           >
-            <div className="icon-container">
+            {/* <div className="icon-container">
               <motion.div
                 animate={
                   {
@@ -321,7 +323,7 @@ export default function TokenizationHub() {
                   ease: "easeInOut",
                 }}
               />
-            </div>
+            </div> */}
 
             <Typography
               variant="h1"
