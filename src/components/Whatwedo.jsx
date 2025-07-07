@@ -88,7 +88,7 @@ const WhatWeDo = () => {
             <Grid item xs={12}>
               <Grid container spacing={{ xs: 4, md: 2 }} alignItems="flex-start">
                 {/* Left Column: Title & Description */}
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={6} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -97,26 +97,19 @@ const WhatWeDo = () => {
                   >
                     <Typography
                       variant="h2"
-                      className="text-3xl sm:text-4xl md:text-5xl mb-2 md:mb-4 pb-1 text-center md:text-left"
+                      className="text-3xl sm:text-4xl md:text-5xl mb-2 md:mb-4 pb-1 text-center"
                     >
-                      {/* Small screens: two-line title */}
-                      <Box className="block md:hidden">
-                        <Box className="flex flex-wrap justify-center">
-                          <GradientLetters text="Tokenization Made" keyPrefix="sm-line1" />
-                        </Box>
-                        <Box className="flex flex-wrap justify-center mt-1">
-                          <GradientLetters text="Simple" keyPrefix="sm-line2" />
-                        </Box>
+                      {/* Two-line title for all screen sizes */}
+                      <Box className="flex flex-wrap justify-center">
+                        <GradientLetters text="Tokenization Made" keyPrefix="line1" />
                       </Box>
-
-                      {/* Medium & large screens: single-line title */}
-                      <Box className="hidden md:flex flex-wrap justify-start">
-                        <GradientLetters text="Tokenization Made Simple" keyPrefix="lg-line" />
+                      <Box className="flex flex-wrap justify-center mt-1">
+                        <GradientLetters text="Simple" keyPrefix="line2" />
                       </Box>
                     </Typography>
                     <Typography
                       variant="body1"
-                      className="max-w-md text-center md:text-left text-sm sm:text-base"
+                      className="max-w-md text-center text-sm sm:text-base"
                       sx={{ color: 'white', opacity: 0.9 }}
                     >
                       Understand how assets like gold, real estate, and collectibles move on-chain using our simplified process.

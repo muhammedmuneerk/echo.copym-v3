@@ -182,6 +182,26 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
+/* Home Page Background */
+.home-bg {
+  background-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.75) 100%), url('/assets/images/bg-homepage-bigscreen.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+  .home-bg {
+    background-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.75) 100%), url('/assets/images/bg-homepage-smallscreen.png');
+    /* Ensure full coverage on smaller devices */
+    background-size: cover;
+    background-position: center;
+    /* Keep background fixed while scrolling */
+    background-attachment: fixed;
+  }
+}
+
 /* Green Tokenization Page Background */
 .green-tokenization-bg {
   background-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.75) 100%), url('/assets/images/bg-gogreen-bigscreen.png');

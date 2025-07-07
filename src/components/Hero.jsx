@@ -15,13 +15,9 @@ export default function Hero() {
 
   return (
     <Box
-      className="min-h-screen relative overflow-hidden"
+      className="min-h-screen home-bg relative overflow-hidden"
       sx={{
         position: "relative",
-        backgroundImage: `
-          radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.75) 100%),
-          url('/assets/sections/bg-hero-section-1.png')
-        `,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -66,7 +62,7 @@ export default function Hero() {
           </motion.div>
 
           {/* Discover More CTA */}
-          <motion.div
+          {/* <motion.div
             className="absolute bottom-12 lg:bottom-20 left-1/2 transform -translate-x-1/2"
             style={{ zIndex: 20 }}
             initial={{ opacity: 0, y: 10 }}
@@ -96,7 +92,7 @@ export default function Hero() {
               Discover More
               <KeyboardArrowDown className="mt-1 sm:mt-2" />
             </Typography>
-          </motion.div>
+          </motion.div> */}
 
         </Container>
       </div>
