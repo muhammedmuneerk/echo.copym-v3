@@ -86,13 +86,13 @@ const BackgroundEarth = () => {
           await loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js');
         }
         
-        if (!window.VANTA) {
-          await loadScript('https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.dots.min.js');
+        if (!window.VANTA || !window.VANTA.CLOUDS2) {
+          await loadScript('https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.clouds2.min.js');
         }
 
         // Initialize Vanta effect
         if (vantaRef.current && window.VANTA) {
-          vantaEffect.current = window.VANTA.DOTS({
+          vantaEffect.current = window.VANTA.CLOUDS2({
             el: vantaRef.current,
             mouseControls: true,
             touchControls: true,
@@ -100,12 +100,7 @@ const BackgroundEarth = () => {
             minHeight: 200.00,
             minWidth: 200.00,
             scale: 1.00,
-            scaleMobile: 1.00,
-            color: 0x20ff28,
-            color2: 0x24ff20,
-            size: 2.50,
-            spacing: 22.00,
-            showLines: false
+            texturePath: './gallery/noise.png'
           });
         }
       } catch (error) {
