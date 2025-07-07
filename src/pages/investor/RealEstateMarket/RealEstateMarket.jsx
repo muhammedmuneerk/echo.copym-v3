@@ -75,10 +75,11 @@ const RealEstateMarket = () => {
 
   return (
     <div className="min-h-screen relative text-white">
-      {/* <BackgroundPattern /> */}
+      {/* Full-viewport background overlay */}
+      <div className="realestate-market-bg fixed inset-0 -z-10"></div>
       <ScrollAnimationWrapper>
       {/* Hero Section */}
-      <section id="hero" className="relative min-h-[90vh] flex items-center">
+      <section id="hero" className="relative min-h-[90vh] flex items-center -mt-16 lg:-mt-28">
         <div className="container mx-auto px-4 py-20 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
