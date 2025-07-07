@@ -89,8 +89,19 @@ const PrivateEquityMarket = () => {
                 transition={{ duration: 0.8 }}
               >
                 <GradientLetters
-                  text="Tokenized PrivateEquity"
+                  text="Tokenized"
                   keyPrefix="line1-char"
+                />
+              </motion.h1>
+              <motion.h1
+                className="text-4xl md:text-5xl lg:text-6xl font-bold text-white "
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+              >
+                <GradientLetters
+                  text="PrivateEquity"
+                  keyPrefix="line2-char"
                 />
               </motion.h1>
               <motion.h1
@@ -101,7 +112,7 @@ const PrivateEquityMarket = () => {
               >
                 <GradientLetters
                   text="for the Digital Age"
-                  keyPrefix="line2-char"
+                  keyPrefix="line3-char"
                 />
               </motion.h1>
 

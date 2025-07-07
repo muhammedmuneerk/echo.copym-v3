@@ -454,7 +454,13 @@ export default function TokenizationHub() {
                 {/* Small & Medium Screens (2 lines) */}
                 <Box className="block lg:hidden">
                   <GradientLetters
-                    text="Tokenize Any Asset Classes"
+                    text="Tokenize Any Asset"
+                    keyPrefix="sm-line1"
+                  />
+                </Box>
+                <Box className="block lg:hidden">
+                  <GradientLetters
+                    text="Classes"
                     keyPrefix="sm-line1"
                   />
                 </Box>
