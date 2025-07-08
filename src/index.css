@@ -184,7 +184,7 @@ body {
 
 /* Home Page Background */
 .home-bg {
-  background-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.75) 100%), url('/assets/images/bg-homepage-bigscreen.png');
+  background-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.75) 100%), url('/assets/sections/bg-hero-section-2.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
