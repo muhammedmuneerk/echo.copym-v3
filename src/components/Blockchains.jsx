@@ -437,17 +437,17 @@ export default function Blockchains() {
           // Small screens - no 3D effect
           <Grid
             container
-            sx={{
-              backgroundImage: 'url(/assets/sections/bg-blockchains-section-1.png)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              borderRadius: "2.5rem",
-              backgroundRepeat: 'no-repeat',
-              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-              border: '5px solid rgba(255, 255, 255, 0.1)',
-              backdropFilter: 'blur(10px)',
-              minHeight: '400px',
-            }}
+            // sx={{
+            //   backgroundImage: 'url(/assets/sections/bg-blockchains-section-1.png)',
+            //   backgroundSize: 'cover',
+            //   backgroundPosition: 'center',
+            //   borderRadius: "2.5rem",
+            //   backgroundRepeat: 'no-repeat',
+            //   boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+            //   border: '5px solid rgba(255, 255, 255, 0.1)',
+            //   backdropFilter: 'blur(10px)',
+            //   minHeight: '400px',
+            // }}
           >
             <Grid item xs={12}>
               <Grid container spacing={isMobile ? 1 : 2} alignItems="center">
@@ -510,7 +510,7 @@ export default function Blockchains() {
                 <Box sx={{ 
                   width: "100%",
                   zIndex: 0, 
-                  opacity: 0.5,
+                  opacity: 1,
                   height: globeStyles.height,
                   marginTop: "40px",
                   marginBottom: "-40px",
@@ -519,7 +519,7 @@ export default function Blockchains() {
                 }}>
                   <img 
                     loading="lazy"
-                    src="/assets/sections/blockchain-1.png" 
+                    src="/assets/sections/blockchain-3.png" 
                     alt="Blockchain" 
                     style={{
                       width: "100%",
