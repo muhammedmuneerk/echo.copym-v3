@@ -8,6 +8,7 @@ const KeywordFlag = ({
   fontSize = "0.9rem",
   color = "#ffffff",
   shadowColor = "rgba(0,0,0,0.5)",
+  reverse = false,
 }) => {
   return (
     <Box
@@ -16,6 +17,7 @@ const KeywordFlag = ({
         top,
         left,
         display: "flex",
+        flexDirection: reverse ? "row-reverse" : "row",
         alignItems: "center",
       }}
     >
@@ -26,7 +28,8 @@ const KeywordFlag = ({
           height: "10px",
           borderRadius: "50%",
           backgroundColor: "rgba(255, 255, 255, 0.3)",
-          marginRight: "6px",
+          marginRight: reverse ? 0 : "6px",
+          marginLeft: reverse ? "6px" : 0,
           boxShadow: `0 0 4px ${shadowColor}`,
         }}
       />
@@ -37,7 +40,8 @@ const KeywordFlag = ({
           width: "40px",
           height: "2px",
           backgroundColor: "rgba(255, 255, 255, 0.3)",
-          marginRight: "6px",
+          marginRight: reverse ? 0 : "6px",
+          marginLeft: reverse ? "6px" : 0,
         }}
       />
 

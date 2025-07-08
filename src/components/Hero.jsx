@@ -41,7 +41,7 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="w-full mt-20 mr-40"
             >
-              {/* Keyword Flags – Hidden on mobile (xs) */}
+              {/* Keyword Flags – Desktop/Tablet */}
               <Box
                 sx={{
                   position: "relative",
@@ -57,7 +57,22 @@ export default function Hero() {
                 <KeywordFlag text="Transparency" top="30%" left="90%" direction="bottom" />
               </Box>
 
-              
+              {/* Keyword Flags – Mobile */}
+              <Box
+                sx={{
+                  position: "relative",
+                  width: "100%",
+                  height: "100vh",
+                  display: { xs: "block", sm: "none" },
+                }}
+              >
+                {/* Fine-tuned coordinates based on mobile background layout */}
+                <KeywordFlag text="Transparency" top="15%" left="67%" reverse />
+                <KeywordFlag text="Trust" top="10%" left="27%" />
+                <KeywordFlag text="Security" top="30%" left="75%" />
+                <KeywordFlag text="Accessibility" top="50%" left="25%" />
+                <KeywordFlag text="Innovation" top="55%" left="67%" reverse />
+              </Box>
             </motion.div>
           </motion.div>
 
