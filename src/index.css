@@ -193,7 +193,7 @@ body {
 
 @media (max-width: 768px) {
   .home-bg {
-    background-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.75) 100%), url('/assets/images/bg-homepage-smallscreen.png');
+    background-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.75) 100%), url('/assets/images/bg-homepage-smallscreen-1.png');
     /* Ensure full coverage on smaller devices */
     background-size: cover;
     background-position: center;
